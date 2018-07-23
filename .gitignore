@@ -1,0 +1,10 @@
+FPGA/db
+FPGA/incremental_db
+FPGA/output_files
+FPGA/DataFetcher.vhd.bak
+FPGA/ImageProc_assignment_defaults.qdf
+FPGA/simulation
+FPGA/c5_pin_model_dump.txt
+FPGA/ImageProc.qsf
+FPGA/ImageProc.qpf
+*.bak
