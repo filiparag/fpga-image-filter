@@ -1,1 +1,0 @@
-obrada-slike-fpga
