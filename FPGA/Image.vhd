@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.all;
 entity Image is
 	generic 
 	(
-		image_width 	: integer := 256
+		image_width 	: integer := 256;
 		image_height 	: integer := 15
 	);
 	port
@@ -26,6 +26,8 @@ architecture image of Image is
 	type data_row 		is array (image_width - 1 downto 0) 	of data_byte;
 	type data_matrix 	is array (image_height - 1 downto 0) 	of data_row;
 
+	signal image_matrix : data_matrix;
+
 begin
 
 	process (
@@ -37,10 +39,12 @@ begin
 
 		if rising_edge(in_clk) then
 			if in_write = '1' then
-
+				image_matrix(0)(0) <= in_data;
 			end if;
 		end if;
 
 	end process;
 
 end image;
+
+
