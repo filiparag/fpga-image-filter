@@ -5,31 +5,22 @@ use IEEE.NUMERIC_STD.all;
 library CustomTypes;
 use CustomTypes.CustomTypes.all;
 
-entity Image is
-	generic 
-	(
-		image_width 	: integer := 256;
-		image_height 	: integer := 15
-	);
+entity Image is 
 	port
 	(
 		in_clk			: in STD_LOGIC;
 		in_write		: in STD_LOGIC;
-		in_data			: in STD_LOGIC_VECTOR (7 downto 0);
+		in_data			: in pixel;
 
 		out_ready		: out STD_LOGIC;
-		out_data		: out STD_LOGIC_VECTOR (7 downto 0)
+		out_data		: out kernel_slice_row
 	);
 
 end Image;	
 
 architecture image of Image is
 
-	type data_byte 		is array (7 downto 0) 					of STD_LOGIC_VECTOR;
-	type data_row 		is array (image_width - 1 downto 0) 	of data_byte;
-	type data_matrix 	is array (image_height - 1 downto 0) 	of data_row;
-
-	signal image_matrix : data_matrix;
+	signal image_matrix : image_slice;
 
 begin
 
