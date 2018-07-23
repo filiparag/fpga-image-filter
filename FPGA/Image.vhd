@@ -5,31 +5,22 @@ use IEEE.NUMERIC_STD.all;
 library CustomTypes;
 use CustomTypes.CustomTypes.all;
 
-entity Image is
-	generic 
-	(
-		image_width 	: integer := 256;
-		image_height 	: integer := 15
-	);
+entity Image is 
 	port
 	(
 		in_clk			: in STD_LOGIC;
 		in_write		: in STD_LOGIC;
-		in_data			: in STD_LOGIC_VECTOR (7 downto 0);
+		in_data			: in pixel;
 
 		out_ready		: out STD_LOGIC;
-		out_data		: out STD_LOGIC_VECTOR (7 downto 0)
+		out_data		: out kernel_row
 	);
 
 end Image;	
 
 architecture image of Image is
 
-	type data_byte 		is array (7 downto 0) 					of STD_LOGIC_VECTOR;
-	type data_row 		is array (image_width - 1 downto 0) 	of data_byte;
-	type data_matrix 	is array (image_height - 1 downto 0) 	of data_row;
-
-	signal image_matrix : data_matrix;
+	signal shift_register : image_slice;
 
 begin
 
@@ -42,9 +33,19 @@ begin
 
 		if rising_edge(in_clk) then
 			if in_write = '1' then
-				image_matrix(0)(0) <= in_data;
+				
+				shift_register((image_slice_width * image_slice_height - 1) downto 1) <= 
+					shift_register((image_slice_width * image_slice_height - 2) downto 0);
+				
+				shift_register(0) <= in_data;
+
 			end if;
 		end if;
+
+		for index in 0 to kernel_dimension loop
+		exit when index = kernel_dimension;
+			out_data(index) <= shift_register(image_slice_width - kernel_dimension + 1);
+		end loop;
 
 	end process;
 
