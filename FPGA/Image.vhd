@@ -13,14 +13,14 @@ entity Image is
 		in_data			: in pixel;
 
 		out_ready		: out STD_LOGIC;
-		out_data		: out kernel_slice_row
+		out_data		: out kernel_row
 	);
 
 end Image;	
 
 architecture image of Image is
 
-	signal image_matrix : image_slice;
+	signal shift_register : image_slice;
 
 begin
 
@@ -33,9 +33,19 @@ begin
 
 		if rising_edge(in_clk) then
 			if in_write = '1' then
-				image_matrix(0)(0) <= in_data;
+				
+				shift_register((image_slice_width * image_slice_height - 1) downto 1) <= 
+					shift_register((image_slice_width * image_slice_height - 2) downto 0);
+				
+				shift_register(0) <= in_data;
+
 			end if;
 		end if;
+
+		for index in 0 to kernel_dimension loop
+		exit when index = kernel_dimension;
+			out_data(index) <= shift_register(image_slice_width - kernel_dimension + 1);
+		end loop;
 
 	end process;
 
