@@ -23,9 +23,13 @@
 -- 
 -- Simulation tool : ModelSim-Altera (VHDL)
 -- 
+LIBRARY STD; 
+use STD.textio.all;
 
 LIBRARY ieee;                                               
-USE ieee.std_logic_1164.all;                                
+USE ieee.std_logic_1164.all;  
+use ieee.numeric_std.all;
+use ieee.std_logic_textio.all;                              
 
 PACKAGE Kernel_data_type IS 
 TYPE out_data_7_0_type IS ARRAY (7 DOWNTO 0) OF STD_LOGIC;
@@ -70,9 +74,39 @@ BEGIN
 	out_ready => out_ready
 	);
 init : PROCESS                                               
--- variable declarations                                     
+
+    variable v_ILINE     : line;
+    variable v_OLINE     : line;
+    variable v_ADD_TERM1 : pixel;
+    --variable v_ADD_TERM2 : std_logic_vector(c_WIDTH-1 downto 0);
+    variable v_SPACE     : character;
+                                    
 BEGIN                                                        
-        -- code that executes only once                      
+	file_open(file_VECTORS, "kernel_test.in",  read_mode);
+	file_open(file_RESULTS, "Kernel_test.out", write_mode);  
+			
+			
+    while not endfile(file_VECTORS) loop
+      readline(file_VECTORS, v_ILINE);
+      read(v_ILINE, v_ADD_TERM1);
+      read(v_ILINE, v_SPACE);           -- read in the space character
+ 
+      -- Pass the variable to a signal to allow the ripple-carry to use it
+      in_data <= v_ADD_TERM1;
+		in_write <= 1;
+		in_clk <= '1'
+
+      wait for 60 ns;
+		
+		in_clk <= '0'
+		in_write <= '0';
+      write(v_OLINE, out_data, right, c_WIDTH);
+      writeline(file_RESULTS, v_OLINE);
+    end loop;
+ 
+    file_close(file_VECTORS);
+    file_close(file_RESULTS);
+     			
 WAIT;                                                       
 END PROCESS init;                                           
 always : PROCESS                                              

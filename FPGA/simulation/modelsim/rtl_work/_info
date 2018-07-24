@@ -22,9 +22,9 @@ V_4IOl<QC6G?c@;SGTI8EB3
 !s100 ^UzJ>z1XB2hFBbjj421Y?0
 Z4 OV;C;10.5b;63
 31
-Z5 !s110 1532427184
+Z5 !s110 1532432760
 !i10b 1
-Z6 !s108 1532427184.000000
+Z6 !s108 1532432760.000000
 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !i113 1
@@ -74,68 +74,50 @@ R14
 R7
 R8
 Pkernel_data_type
-R2
+Z15 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+R1
 R3
-Z15 w1532427149
+R2
+Z16 w1532431097
 R0
-Z16 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
-Z17 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
+Z17 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
+Z18 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
 l0
-L30
-V5W;HHFmbU<fZ8ZC8?hg^D3
-!s100 AHPmWG1V``neblVM360Lo3
+L34
+VJ]hH47=6[93oVLhCDnaX20
+!s100 Fln6`8[;eLIQoESH?:L>;0
 R4
 31
 R5
 !i10b 1
 R6
-Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
-Z19 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
+Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
+Z20 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
 !i113 1
 R7
 R8
 Ekernel_vhd_tst
+R16
+R10
 R15
 R1
-R10
-Z20 DPx4 work 16 kernel_data_type 0 22 5W;HHFmbU<fZ8ZC8?hg^D3
+DPx4 work 16 kernel_data_type 0 22 J]hH47=6[93oVLhCDnaX20
 R2
 R3
 R0
-R16
 R17
+R18
 l0
-L43
-VaQloCR65WBdgNNB;TEzbE2
-!s100 VD>C2XUADIFA`n;S1:oPj2
+L47
+V:Xml;?zbVQGf2jMT0hg_62
+!s100 4oT;l3785FX^?D:iRYQNK1
 R4
 31
 R5
 !i10b 1
 R6
-R18
 R19
-!i113 1
-R7
-R8
-Akernel_arch
-R1
-R10
 R20
-R2
-R3
-DEx4 work 14 kernel_vhd_tst 0 22 aQloCR65WBdgNNB;TEzbE2
-l62
-L45
-VIW@AI]C[1GH``;d;HThZg1
-!s100 ZcJ@^kPdMmYIo_oZCFX`T2
-R4
-31
-R5
-!i10b 1
-R6
-R18
-R19
 !i113 1
 R7
 R8
