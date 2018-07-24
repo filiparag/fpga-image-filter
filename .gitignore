@@ -7,3 +7,5 @@ FPGA/c5_pin_model_dump.txt
 *.bak
 
 \.vs/
+Software/kernel_test.in
+Software/kernel_test.out
