@@ -20,7 +20,8 @@ end Image;
 
 architecture image of Image is
 
-	signal shift_register : image_slice;
+	signal shift_register 	: image_slice;
+	signal pixel_count 		: unsigned (15 downto 0) := "00000000";
 
 begin
 
@@ -36,8 +37,13 @@ begin
 				
 				shift_register((image_slice_width * image_slice_height - 1) downto 1) <= 
 					shift_register((image_slice_width * image_slice_height - 2) downto 0);
-				
+
 				shift_register(0) <= in_data;
+				pixel_count <= pixel_count + 1;
+
+				if pixel_count >= (image_slice_width * image_slice_height - kernel_dimension + 1) then
+					out_ready <= '1';
+				end if;
 
 			end if;
 		end if;
