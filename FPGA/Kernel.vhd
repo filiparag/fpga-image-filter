@@ -2,8 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 
-library CustomTypes;
-use CustomTypes.CustomTypes.all;
+use work.CustomTypes.all;
 
 entity Kernel is
 	port
@@ -32,7 +31,7 @@ begin
 	if rising_edge(in_clk) then
 		if(pixel_count < (kernel_dimension * kernel_dimension)) then
 			if(in_write = '1') then
-				reg ((kernel_dimension * kernel_dimension) - 1 downto 1) <= reg ((kernel_dimension * kernel_dimension) - 2 downto 0) & in_data;
+				reg <= reg ((kernel_dimension * kernel_dimension) - 2 downto 0) & in_data;
 				pixel_count <= pixel_count + 1;
 			end if;
 		else
