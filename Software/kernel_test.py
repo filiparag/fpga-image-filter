@@ -8,5 +8,9 @@ with open('kernel_test.in', 'r') as file:
 with open('kernel_test.out', 'r') as file:
     kernel_out = np.array(list(map(lambda p: int(np.packbits(list(map(lambda x: int(x), list(p))))), file.read().split(' '))))
 
+<<<<<<< HEAD
 print ('Error percentage: ' + str(round(len(np.setdiff1d(kernel_in, kernel_out)) / len(kernel_in), 2)) + ' %')
 print ('Error count: ' + str(len(np.setdiff1d(kernel_in, kernel_out))) + ' pixel(s)')
+=======
+print (str(len(np.setdiff1d(kernel_in, kernel_out)) / len(kernel_in)) + ' %')
+>>>>>>> master
