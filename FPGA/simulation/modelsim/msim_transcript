@@ -66,5 +66,8 @@
 # Error: Error loading design
 #        Pausing macro execution
 # MACRO ./ImageProc_run_msim_rtl_vhdl.do PAUSED at line 13
+<<<<<<< Updated upstream
 # End time: 16:29:48 on Jul 25,2018, Elapsed time: 3:09:07
 # Errors: 1, Warnings: 0
+=======
+>>>>>>> Stashed changes
