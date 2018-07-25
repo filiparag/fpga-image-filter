@@ -2,8 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 
-library CustomTypes;
-use CustomTypes.CustomTypes.all;
+use work.CustomTypes.all;
 
 entity Image is 
 	port
@@ -12,7 +11,7 @@ entity Image is
 		in_write		: in STD_LOGIC;
 		in_data			: in pixel;
 
-		out_ready		: out STD_LOGIC;
+		out_ready		: out STD_LOGIC := '0';
 		out_data		: out kernel_row
 	);
 
@@ -21,7 +20,7 @@ end Image;
 architecture image of Image is
 
 	signal shift_register 	: image_slice;
-	signal pixel_count 		: unsigned (15 downto 0) := "00000000";
+	signal pixel_count 		: unsigned (15 downto 0) := (others => '0');
 
 begin
 
