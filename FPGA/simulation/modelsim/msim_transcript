@@ -12,18 +12,18 @@
 # 
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 08:50:13 on Jul 25,2018
+# Start time: 12:29:45 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Loading package NUMERIC_STD
 # -- Compiling package CustomTypes
-# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
+# End time: 12:29:45 on Jul 25,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 08:50:13 on Jul 25,2018
+# Start time: 12:29:45 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -32,12 +32,12 @@
 # -- Loading package CustomTypes
 # -- Compiling entity Kernel
 # -- Compiling architecture kernel of Kernel
-# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
+# End time: 12:29:45 on Jul 25,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 08:50:13 on Jul 25,2018
+# Start time: 12:29:45 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -47,12 +47,12 @@
 # -- Loading package CustomTypes
 # -- Compiling entity KernelTestbench
 # -- Compiling architecture kernel_testbench of KernelTestbench
-# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
+# End time: 12:29:45 on Jul 25,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  KernelTestbench
 # vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs=""+acc"" KernelTestbench 
-# Start time: 08:50:14 on Jul 25,2018
+# Start time: 12:29:45 on Jul 25,2018
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -70,5 +70,5 @@
 # run -all
 # Break key hit
 # Break in Process clk_process at C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht line 66
-# End time: 10:02:56 on Jul 25,2018, Elapsed time: 1:12:42
+# End time: 12:42:43 on Jul 25,2018, Elapsed time: 0:12:58
 # Errors: 0, Warnings: 0

@@ -21,10 +21,10 @@ architecture kernel_testbench OF KernelTestbench IS
 constant clk_period : time 				:= 30 ns;
 
 -- signals                                                   
-signal in_clk 			: std_logic;
 signal in_data 			: pixel;
-signal in_write			: std_logic;
 signal out_data 		: window_matrix;
+signal in_clk 			: std_logic;
+signal in_write			: std_logic;
 signal out_ready 		: std_logic;
 
 --files
@@ -71,49 +71,53 @@ end process clk_process;
 --Sends inputs and reads outputs of UUT
 send_kernel : process                                         
 
-variable in_line		: line;
-variable out_line		: line;
-variable in_pixel_vect 	: std_logic_vector(7 downto 0);
-variable out_pixel_vect	: std_logic_vector(7 downto 0);
-variable in_pixel	 	: pixel;
-variable out_pixel     	: pixel;
+	variable in_line		: line;
+	variable out_line		: line;
+	variable in_pixel	 	: pixel;
+	variable out_pixel     	: pixel;
+	variable in_pixel_vect 	: std_logic_vector(7 downto 0);
+	variable out_pixel_vect	: std_logic_vector(7 downto 0);
 
 
-begin    
-	--File opening
-	file_open(in_file, "kernel_test.in",  read_mode);
-	file_open(out_file, "Kernel_test.out", write_mode);  
-			
-	--Reading the in file
-	while not endfile(in_file) loop
-		readline(in_file, in_line);	
-		read(in_line, in_pixel_vect);
+	begin    
+		--File opening
+		file_open(in_file, "kernel_test.in",  read_mode);
+		file_open(out_file, "kernel_test.out", write_mode);  
+				
+		--Reading the in file
+		while not endfile(in_file) loop
+			readline(in_file, in_line);	
+			read(in_line, in_pixel_vect);
 
-		--Converting std_vector to pixel
-		for i in 0 to 7 loop
-			in_pixel(i) := in_pixel_vect(i);
+			--Converting std_vector to pixel
+			for i in 0 to 7 loop
+				in_pixel(i) := in_pixel_vect(i);
+			end loop;
+			in_data <= in_pixel;
+
+			wait until rising_edge(in_clk);
 		end loop;
-		in_data <= in_pixel;
+		
 
-		wait until rising_edge(in_clk);
-	end loop;
-	
-	--Writing kernel in output file
-	for i in 0 to 224 loop
-		out_pixel := out_data(i);
-		--Converting vector to std_vector
-		for j in 0 to 7 loop
-			out_pixel_vect(j) := out_pixel(j);
-		end loop;
-		write(out_line, out_pixel_vect, right, 8);
-		writeline(out_file, out_line);
-		--write(out_line, character(''), right, 1);
-	end loop;
+		--Waiting until UUT is ready
+		wait until rising_edge(out_ready);
 
-	writeline(out_file, out_line);
-	file_close(in_file);
-	file_close(out_file);
+		--Writing output in file
+		if (out_ready = '1') then
+			for i in 0 to 224 loop
+				out_pixel := out_data(i);
+				--Converting vector to std_vector
+				for j in 0 to 7 loop
+					out_pixel_vect(j) := out_pixel(j);
+				end loop;
+				write(out_line, out_pixel_vect, right, 8);
+				writeline(out_file, out_line);
+			end loop;
+		end if;
 
-	wait;                                                        
-end process send_kernel;                                          
+		file_close(in_file);
+		file_close(out_file);
+
+		wait;                                                        
+	end process send_kernel;                                          
 end kernel_testbench;
