@@ -22,9 +22,9 @@ V_4IOl<QC6G?c@;SGTI8EB3
 !s100 ^UzJ>z1XB2hFBbjj421Y?0
 Z4 OV;C;10.5b;63
 31
-Z5 !s110 1532432760
+Z5 !s110 1532501413
 !i10b 1
-Z6 !s108 1532432760.000000
+Z6 !s108 1532501413.000000
 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !i113 1
@@ -73,19 +73,20 @@ R14
 !i113 1
 R7
 R8
-Pkernel_data_type
-Z15 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+Ekerneltestbench
+Z15 w1532501382
+R10
+Z16 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 R1
-R3
 R2
-Z16 w1532431097
+R3
 R0
 Z17 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
 Z18 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
 l0
-L34
-VJ]hH47=6[93oVLhCDnaX20
-!s100 Fln6`8[;eLIQoESH?:L>;0
+L13
+VZG5VfjF]]j3PIJ2MnNMgU0
+!s100 FW_0M4j_HID]Ah3aV``hZ0
 R4
 31
 R5
@@ -96,21 +97,17 @@ Z20 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike
 !i113 1
 R7
 R8
-Ekernel_vhd_tst
-R16
+Akernel_testbench
 R10
-R15
+R16
 R1
-DPx4 work 16 kernel_data_type 0 22 J]hH47=6[93oVLhCDnaX20
 R2
 R3
-R0
-R17
-R18
-l0
-L47
-V:Xml;?zbVQGf2jMT0hg_62
-!s100 4oT;l3785FX^?D:iRYQNK1
+DEx4 work 15 kerneltestbench 0 22 ZG5VfjF]]j3PIJ2MnNMgU0
+l46
+L18
+Vfh;Tae_h<4ekFIKL7[bIW0
+!s100 aIZKfCboUL>BJ^SPO:eGY1
 R4
 31
 R5

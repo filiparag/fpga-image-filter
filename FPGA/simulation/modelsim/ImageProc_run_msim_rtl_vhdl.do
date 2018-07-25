@@ -10,7 +10,7 @@ vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/o
 
 vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  Kernel_vhd_tst
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  KernelTestbench
 
 add wave *
 view structure

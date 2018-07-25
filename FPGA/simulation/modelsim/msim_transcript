@@ -12,18 +12,18 @@
 # 
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:46:00 on Jul 24,2018
+# Start time: 08:50:13 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Loading package NUMERIC_STD
 # -- Compiling package CustomTypes
-# End time: 13:46:00 on Jul 24,2018, Elapsed time: 0:00:00
+# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:46:00 on Jul 24,2018
+# Start time: 08:50:13 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -32,44 +32,43 @@
 # -- Loading package CustomTypes
 # -- Compiling entity Kernel
 # -- Compiling architecture kernel of Kernel
-# End time: 13:46:00 on Jul 24,2018, Elapsed time: 0:00:00
+# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:46:00 on Jul 24,2018
+# Start time: 08:50:13 on Jul 25,2018
 # vcom -reportprogress 300 -93 -work work C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Loading package NUMERIC_STD
 # -- Loading package std_logic_textio
-# -- Compiling package Kernel_data_type
-# -- Loading package Kernel_data_type
 # -- Loading package CustomTypes
-# -- Compiling entity Kernel_vhd_tst
-# -- Compiling architecture Kernel_arch of Kernel_vhd_tst
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(78): (vcom-1136) Unknown identifier "line".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(79): (vcom-1136) Unknown identifier "line".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(85): (vcom-1136) Unknown identifier "file_open".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(86): (vcom-1136) Unknown identifier "file_open".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(89): (vcom-1136) Unknown identifier "endfile".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(89): Type error resolving prefix expression "not" as type std.STANDARD.BOOLEAN.
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(90): (vcom-1136) Unknown identifier "readline".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(91): (vcom-1136) Unknown identifier "read".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(92): (vcom-1136) Unknown identifier "read".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(96): Integer literal 1 is not of type ieee.std_logic_1164.STD_LOGIC.
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(99): near "wait": (vcom-1576) expecting ';'.
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(102): near "in_write": (vcom-1576) expecting ';'.
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(103): (vcom-1136) Unknown identifier "write".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(104): (vcom-1136) Unknown identifier "writeline".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(107): (vcom-1136) Unknown identifier "file_close".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(108): (vcom-1136) Unknown identifier "file_close".
-# ** Error: C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht(120): VHDL Compiler exiting
-# End time: 13:46:00 on Jul 24,2018, Elapsed time: 0:00:00
-# Errors: 17, Warnings: 0
-# ** Error: C:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/vcom failed.
-# Error in macro ./ImageProc_run_msim_rtl_vhdl.do line 11
-# C:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/vcom failed.
-#     while executing
-# "vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht}"
+# -- Compiling entity KernelTestbench
+# -- Compiling architecture kernel_testbench of KernelTestbench
+# End time: 08:50:13 on Jul 25,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  KernelTestbench
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs=""+acc"" KernelTestbench 
+# Start time: 08:50:14 on Jul 25,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.customtypes
+# Loading work.kerneltestbench(kernel_testbench)
+# Loading work.kernel(kernel)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# Break key hit
+# Break in Process clk_process at C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht line 66
+# End time: 10:02:56 on Jul 25,2018, Elapsed time: 1:12:42
+# Errors: 0, Warnings: 0
