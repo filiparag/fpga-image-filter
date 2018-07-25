@@ -9,12 +9,12 @@ entity DataProxy is
 	(
 		in_clk			: in std_logic;
 		in_ready		: in std_logic;
-		in_data			: in std_logic_vector (7 downto 0);
+		in_data			: in pixel;
 
 		out_image_write	: out std_logic;
 		out_kernel_write: out std_logic;
-		out_image		: out std_logic_vector (7 downto 0);
-		out_kernel		: out std_logic_vector (7 downto 0)
+		out_image		: out pixel;
+		out_kernel		: out pixel
 	);
 
 end DataProxy;
