@@ -22,99 +22,116 @@ V_4IOl<QC6G?c@;SGTI8EB3
 !s100 ^UzJ>z1XB2hFBbjj421Y?0
 Z4 OV;C;10.5b;63
 31
-Z5 !s110 1532514585
+Z5 !s110 1532517641
 !i10b 1
-Z6 !s108 1532514585.000000
+!s108 1532517640.000000
 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd|
 !i113 1
-Z7 o-93 -work work
-Z8 tExplicit 1 CvgOpt 0
-Ekernel
-Z9 w1532514496
-Z10 DPx4 work 11 customtypes 0 22 _4IOl<QC6G?c@;SGTI8EB3
-R1
+Z6 o-93 -work work
+Z7 tExplicit 1 CvgOpt 0
+Pkernel_data_type
+R2
+R3
+Z8 w1532517440
+R0
+Z9 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
+Z10 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
+l0
+L30
+V5W;HHFmbU<fZ8ZC8?hg^D3
+!s100 AHPmWG1V``neblVM360Lo3
+R4
+31
+R5
+!i10b 1
+Z11 !s108 1532517641.000000
+Z12 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
+Z13 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
+!i113 1
+R6
+R7
+Ekernel_vhd_tst
+R8
+Z14 DPx4 work 16 kernel_data_type 0 22 5W;HHFmbU<fZ8ZC8?hg^D3
 R2
 R3
 R0
-Z11 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd
-Z12 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd
-l0
-L7
-VzR[T<1i>fAUkKWI9BPYNJ1
-!s100 f:WN7dooS20ca^LDe^KX20
-R4
-31
-R5
-!i10b 1
-R6
-Z13 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd|
-Z14 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd|
-!i113 1
-R7
-R8
-Akernel
+R9
 R10
-R1
-R2
-R3
-DEx4 work 6 kernel 0 22 zR[T<1i>fAUkKWI9BPYNJ1
-l25
-L20
-V>DA:okdMdUKDhQO`_dLZ61
-!s100 hLbZEDKg;6H7i9@l>[Cj<0
+l0
+L42
+VHm`R>XnLJgA_W2mHCK>6H1
+!s100 T0N_08a0g<H1a@90h6@]M3
 R4
 31
 R5
 !i10b 1
-R6
+R11
+R12
 R13
-R14
 !i113 1
+R6
 R7
-R8
-Ekerneltestbench
-Z15 w1532514570
-R10
-Z16 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
-R1
+Akernel_arch
+R14
 R2
 R3
-R0
-Z17 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
-Z18 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht
-l0
-L13
-VZG5VfjF]]j3PIJ2MnNMgU0
-!s100 FW_0M4j_HID]Ah3aV``hZ0
+DEx4 work 14 kernel_vhd_tst 0 22 Hm`R>XnLJgA_W2mHCK>6H1
+l61
+L44
+VX`GjCQgHMokD=4P0iIhaA3
+!s100 `33oK4IH9jS0@SKELIe9K2
 R4
 31
 R5
 !i10b 1
-R6
-Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
-Z20 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht|
+R11
+R12
+R13
 !i113 1
+R6
 R7
-R8
-Akernel_testbench
-R10
+Elinearfilter
+Z15 w1532517576
+Z16 DPx4 work 11 customtypes 0 22 _4IOl<QC6G?c@;SGTI8EB3
+R1
+R2
+R3
+R0
+Z17 8C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/LinearFilter.vhd
+Z18 FC:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/LinearFilter.vhd
+l0
+L8
+VzTd0WkDl7Uea<OUfWJB:A0
+!s100 f@R7;N53n6ca@Eh1c6RJk0
+R4
+31
+R5
+!i10b 1
+R11
+Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/LinearFilter.vhd|
+Z20 !s107 C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/LinearFilter.vhd|
+!i113 1
+R6
+R7
+Alinear_filter
 R16
 R1
 R2
 R3
-DEx4 work 15 kerneltestbench 0 22 ZG5VfjF]]j3PIJ2MnNMgU0
-l46
-L18
-VOHMEMZ4Mci4ZQ<D48Mb6i0
-!s100 W<Ff@B9e_M2_;T[]>TTG[2
+DEx4 work 12 linearfilter 0 22 zTd0WkDl7Uea<OUfWJB:A0
+l24
+L23
+VNfiWo>WA7bXXbZ>LKPgIo1
+!s100 ;f6TM]m0Cjl;k1I6OE[Lo3
 R4
 31
 R5
 !i10b 1
-R6
+R11
 R19
 R20
 !i113 1
+R6
 R7
-R8

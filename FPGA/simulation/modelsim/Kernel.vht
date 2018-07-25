@@ -4,9 +4,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_textio.all;
 use STD.textio.all;                                                             
-
-library work;
-use work.customtypes.all;
+use work.CustomTypes.all;
 
 
 -- Empty testbench entity
@@ -15,69 +13,68 @@ end KernelTestbench;
 
 
 
-architecture kernel_testbench OF KernelTestbench IS
+architecture kernel_testbench of KernelTestbench is
 
--- constants   
-constant clk_period : time 				:= 30 ns;
+	-- constants   
+	constant clk_period			: time 				:= 30 ns;
 
--- signals                                                   
-signal in_data 			: pixel;
-signal out_data 		: window_matrix;
-signal in_clk 			: std_logic;
-signal in_write			: std_logic;
-signal out_ready 		: std_logic;
+	-- signals                                                   
+	signal in_data 				: pixel;
+	signal out_data 			: window_matrix;
+	signal in_clk 				: std_logic;
+	signal in_write				: std_logic;
+	signal out_ready 			: std_logic;
 
---files
-file in_file 			: text;
-file out_file 			: text;
+	--files
+	file in_file 				: text;
+	file out_file 				: text;
 
---UUT component
-component Kernel
-	port (
-	in_clk 				: in std_logic;
-	in_data 			: in pixel;
-	in_write 			: in std_logic;
-	out_data 			: buffer window_matrix;
-	out_ready 			: buffer std_logic
-	);
-end component;
+	--UUT component
+	component Kernel
+		port (
+		in_clk 					: in std_logic;
+		in_data 				: in pixel;
+		in_write 				: in std_logic;
+		out_data 				: buffer window_matrix;
+		out_ready 				: buffer std_logic
+		);
+	end component;
 
---Signal mapping
 begin
-	i1 : Kernel
-	port map (
-	in_clk => in_clk,
-	in_data => in_data,
-	in_write => in_write,
-	out_data => out_data,
-	out_ready => out_ready
-	);
+		--Signal mapping
+		i1 : Kernel
+		port map (
+		in_clk => in_clk,
+		in_data => in_data,
+		in_write => in_write,
+		out_data => out_data,
+		out_ready => out_ready
+		);
 
 
--- Generates clock for UUT
-clk_process : process                                                                               
-begin      
-	in_write <= '1';
-	in_clk <= '1';
-	wait for clk_period/2; 
+	-- Generates clock for UUT
+	clk_process : process                                                                               
+	begin      
+		in_write <= '1';
+		in_clk <= '1';
+		wait for clk_period/2; 
 
-	in_write <= '0';
-	in_clk <= '0';
-	wait for clk_period/2; 
-                                                  
-end process clk_process;       
+		in_write <= '0';
+		in_clk <= '0';
+		wait for clk_period/2; 
+													
+	end process clk_process;       
 
 
---Sends inputs and reads outputs of UUT
-send_kernel : process                                         
+	--Sends inputs and reads outputs of UUT
+	send_kernel : process                                         
 
-	variable in_line		: line;
-	variable out_line		: line;
-	variable in_pixel	 	: pixel;
-	variable out_pixel     	: pixel;
-	variable in_pixel_vect 	: std_logic_vector(7 downto 0);
-	variable out_pixel_vect	: std_logic_vector(7 downto 0);
-
+		variable in_line		: line;
+		variable out_line		: line;
+		variable in_pixel	 	: pixel;
+		variable out_pixel     	: pixel;
+		variable in_pixel_vect 	: std_logic_vector(7 downto 0);
+		variable out_pixel_vect	: std_logic_vector(7 downto 0);
 
 	begin    
 		--File opening
@@ -104,7 +101,7 @@ send_kernel : process
 
 		--Writing output in file
 		if (out_ready = '1') then
-			for i in 0 to 224 loop
+			for i in 0 to (kernel_dimension * kernel_dimension - 1) loop
 				out_pixel := out_data(i);
 				--Converting vector to std_vector
 				for j in 0 to 7 loop

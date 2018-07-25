@@ -1,36 +1,32 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.all;
-use IEEE.NUMERIC_STD.all;
+--Library and package declaration
+library ieee;                                               
+use ieee.std_logic_1164.all;  
+use ieee.numeric_std.all;
+use work.CustomTypes.all;
 
 entity DataFetcher is
-	generic 
-	(
-		kernel_dim : integer := 15
-		-- kernel_dim_bin :  := 15;
-	);
 	port
 	(
-		in_clk			: in STD_LOGIC;
-		in_ready		: in STD_LOGIC;
-		in_data			: in STD_LOGIC_VECTOR (7 downto 0);
+		in_clk			: in std_logic;
+		in_ready		: in std_logic;
+		in_data			: in std_logic_vector (7 downto 0);
 
-		out_image_write	: out STD_LOGIC;
-		out_kernel_write: out STD_LOGIC;
-		out_image		: out STD_LOGIC_VECTOR (7 downto 0);
-		out_kernel		: out STD_LOGIC_VECTOR (7 downto 0)
+		out_image_write	: out std_logic;
+		out_kernel_write: out std_logic;
+		out_image		: out std_logic_vector (7 downto 0);
+		out_kernel		: out std_logic_vector (7 downto 0)
 	);
 
 end DataFetcher;
 
 architecture data_fetcher of DataFetcher is
 
-	signal pixel_count : unsigned (7 downto 0) := "11100001";
+	signal pixel_count 	: unsigned (7 downto 0) := "11100001";
 
 begin
 
 	process (
-		in_clk,
-		in_data
+		in_clk
 	)
 	begin
 
@@ -48,7 +44,6 @@ begin
 				end if;
 			end if;
 		end if;
-
 	end process;
 
 end data_fetcher;
