@@ -9,3 +9,8 @@ FPGA/c5_pin_model_dump.txt
 \.vs/
 Software/kernel_test.in
 Software/kernel_test.out
+FPGA/ImageProc_nativelink_simulation\.rpt
+
+FPGA/ImageProc\.qsf
+
+FPGA/simulation/modelsim/ImageProc_modelsim\.xrf
