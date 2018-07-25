@@ -21,5 +21,5 @@ with open('image_test.in', 'w') as file:
             column_in += str(np.binary_repr(pixel, width=8))
         file.write(column_in + '\n')
 
-plt.imshow(image, cmap='gray')
-plt.show()
+# plt.imshow(image, cmap='gray')
+# plt.show()

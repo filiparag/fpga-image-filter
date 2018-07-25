@@ -27,11 +27,14 @@ def decode(file):
     return image
 
 
-with open('image_test.in', 'r') as file:
+with open('image_test.out', 'r') as file:
     image_out = decode(file.read())
     
-print ('Error percentage: ' + str(round(len(np.setdiff1d(image_out, image)) / image.size, 2)) + ' %')
-print ('Error count: ' + str(len(np.setdiff1d(image_out, image))) + ' pixel(s)')
+image_diff = image - image_out
+error = np.count_nonzero(image_diff)
+
+print('Error percentage : %s percent' % round(error / image.size, 2))
+print('Error count      : %s / %s pixel(s)' % (error, image.size))
 
 # plt.suptitle('Image test')
 # plt.subplot(1,2,1)
