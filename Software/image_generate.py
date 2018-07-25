@@ -10,11 +10,18 @@ image = np.zeros((15,15))
 
 for x in range(len(image)):
     for y in range(len(image[0])):
-        image[x][y] = (x / (len(image) - 1) + y / (len(image) - 1)) * 127
+        # image[x][y] = (x / (len(image) - 1) + y / (len(image) - 1)) * 127
+        image[x][y] = np.math.sqrt(x * 15) + y**2
 
 image = np.array(image, dtype=np.uint8)
 
-with open('image_test.in', 'w') as file:
+with open('image_input.in', 'w') as file:
+    pixels = []
+    for p in image.reshape(225,1):
+        pixels.append((np.binary_repr(p[0], width=8)))
+    file.write('\n'.join(pixels))
+
+with open('image_output.in', 'w') as file:
     for column in np.flip(image.T, axis=0):
         column_in = ""
         for pixel in column:
