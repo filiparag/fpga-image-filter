@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.CustomTypes.all;
 
-entity DataFetcher is
+entity DataProxy is
 	port
 	(
 		in_clk			: in std_logic;
@@ -17,23 +17,23 @@ entity DataFetcher is
 		out_kernel		: out std_logic_vector (7 downto 0)
 	);
 
-end DataFetcher;
+end DataProxy;
 
-architecture data_fetcher of DataFetcher is
+architecture data_proxy of DataProxy is
 
-	signal pixel_count 	: unsigned (7 downto 0) := "11100001";
+	signal pixel_count 	: unsigned (7 downto 0) := "00000000";
 
 begin
 
 	process (
-		in_clk
+	in_clk
 	)
 	begin
 
 		if rising_edge(in_clk) then
 			if in_ready = '1' then
-				if pixel_count > 0 then
-					pixel_count <= pixel_count - 1;
+				if pixel_count < (kernel_dimension * kernel_dimension) then
+					pixel_count <= pixel_count + 1;
 					out_kernel_write <= '1';
 					out_image_write <= '0';
 					out_kernel <= in_data;
@@ -46,4 +46,4 @@ begin
 		end if;
 	end process;
 
-end data_fetcher;
+end data_proxy;
