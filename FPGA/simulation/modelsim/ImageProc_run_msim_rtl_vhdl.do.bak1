@@ -5,14 +5,14 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/CustomTypes.vhd}
-vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/Kernel.vhd}
+vcom -93 -work work {/home/filiparag/Docs/obrada-slike-fpga/FPGA/CustomTypes.vhd}
+vcom -93 -work work {/home/filiparag/Docs/obrada-slike-fpga/FPGA/DataProxy.vhd}
 
-vcom -93 -work work {C:/Users/mihai/Desktop/Personal Profesional/Projects/FPGA/obrada-slike-fpga/FPGA/simulation/modelsim/Kernel.vht}
+vcom -93 -work work {/home/filiparag/Docs/obrada-slike-fpga/FPGA/simulation/modelsim/Image.vht}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  Kernel_vhd_tst
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  ImageTestbench
 
 add wave *
 view structure
 view signals
-run -all
+run 5000 ns
