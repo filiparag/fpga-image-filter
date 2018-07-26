@@ -1,17 +1,19 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.all;
-use IEEE.NUMERIC_STD.all;
+--Library and package declaration
+library ieee;                                               
+use ieee.std_logic_1164.all;  
+use ieee.numeric_std.all;
+use work.CustomTypes.all;
 
 use work.CustomTypes.all;
 
 entity Image is 
 	port
 	(
-		in_clk			: in STD_LOGIC;
-		in_write		: in STD_LOGIC;
+		in_clk			: in std_logic;
+		in_write		: in std_logic;
 		in_data			: in pixel;
 
-		out_ready		: out STD_LOGIC := '0';
+		out_ready		: out std_logic := '0';
 		out_data		: out kernel_row
 	);
 

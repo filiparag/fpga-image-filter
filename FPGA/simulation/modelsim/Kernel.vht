@@ -98,19 +98,17 @@ begin
 
 		--Waiting until UUT is ready
 		wait until rising_edge(out_ready);
-
+		
 		--Writing output in file
-		if (out_ready = '1') then
-			for i in 0 to (kernel_dimension * kernel_dimension - 1) loop
-				out_pixel := out_data(i);
-				--Converting vector to std_vector
-				for j in 0 to 7 loop
-					out_pixel_vect(j) := out_pixel(j);
-				end loop;
-				write(out_line, out_pixel_vect, right, 8);
-				writeline(out_file, out_line);
+		for i in 0 to (kernel_dimension * kernel_dimension - 1) loop
+			out_pixel := out_data(i);
+			--Converting vector to std_vector
+			for j in 0 to 7 loop
+				out_pixel_vect(j) := out_pixel(j);
 			end loop;
-		end if;
+			write(out_line, out_pixel_vect, right, 8);
+			writeline(out_file, out_line);
+		end loop;
 
 		file_close(in_file);
 		file_close(out_file);

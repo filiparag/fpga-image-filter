@@ -24,7 +24,7 @@ begin
 
 	out_ready <= in_kernel_ready and in_window_ready;
 
-	process
+	ime : process
 	(
 		in_clk
 	)
@@ -33,6 +33,7 @@ begin
 		variable counter 	: unsigned(7 downto 0) 		:= (others => '0');
 	begin
 		if rising_edge(in_clk) then
+			counter := "00000000";
 			for i in 0 to 14 loop
 				for j in 0 to 14 loop
 					param := unsigned (in_kernel_data (i * kernel_dimension + j)) * unsigned(in_window_data (i * kernel_dimension + j));
@@ -44,8 +45,8 @@ begin
 			end loop;
 			result := result / counter;
 			for i in 0 to 7 loop
-				out_data(i) <= result(23+i);
+				out_data(i) <= result(i);
 			end loop;
 		end if;
-	end process;
+	end process ime;
 end linear_filter;
