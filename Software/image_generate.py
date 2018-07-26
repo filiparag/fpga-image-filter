@@ -21,7 +21,7 @@ with open('image_input.in', 'w') as file:
     file.write('\n'.join(pixels))
 
 with open('image_output.in', 'w') as file:
-    for column in np.flip(image.T, axis=0):
+    for column in image.T:
         column_in = ""
         for pixel in column:
             column_in += str(np.binary_repr(pixel, width=8))

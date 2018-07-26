@@ -57,11 +57,11 @@ architecture image_testbench of ImageTestbench is
 	-- Generates clock for UUT
 	clk_process : process                                                                               
 	begin      
-		in_write <= '1';
+		-- in_write <= '1';
 		in_clk <= '1';
 		wait for clk_period/2; 
 
-		in_write <= '0';
+		-- in_write <= '0';
 		in_clk <= '0';
 		wait for clk_period/2; 
 													
@@ -83,15 +83,16 @@ architecture image_testbench of ImageTestbench is
 	begin    
 		--File opening
 		file_open(in_file, "image_input.in",  read_mode);
-		file_open(out_file, "image_output.out", write_mode);  
 				
+		in_write <= '1';
+
 		--Reading the in file
 		while not endfile(in_file) loop
 			readline(in_file, in_line);	
 			read(in_line, in_pixel_vect);
 
 			--Converting std_vector to pixel
-			for i in 0 to 7 loop
+			for i in 7 downto 0 loop
 				in_pixel(i) := in_pixel_vect(i);
 			end loop;
 			in_data <= in_pixel;
@@ -99,43 +100,47 @@ architecture image_testbench of ImageTestbench is
 			wait until rising_edge(in_clk);
 		end loop;
 		
-
-		--Waiting until UUT is ready
-		-- wait until rising_edge(out_ready);
-		-- wait until out_ready = '1';
-
-		-- Writing output in file
-		if out_ready = '1' then
-			for i in 0 to 14 loop
-				for j in 0 to 7 loop
-					-- out_pixel_vect(i) := out_data(j)(i);
-					out_column_vect(i * 8 + j) := out_data(i)(j);
-				end loop;
-				-- out_column_vect(i * 8 to (i + 1) * 8 - 1) := out_pixel_vect(7 downto 0);
-				-- out_pixel := out_data(i);
-				-- --Converting vector to std_vector
-				-- for j in 0 to 7 loop
-				-- 	-- out_pixel_vect(j) := out_pixel(j);
-				-- 	out_column_vect(i*8 + j) := out_pixel(j);
-				-- end loop;
-				-- -- out_column_vect(i*8 downto (i-1)*8) <= out_pixel_vect(7 downto 0);
-			end loop;
-			write(out_line, out_column_vect);
-			writeline(out_file, out_line);
-
-			wait until rising_edge(in_clk);
-		end if;
-
-		-- wait until rising_edge(out_ready);
-
-		-- write(out_line, temp, right, 8);
-		-- write(out_line, out_column_vect, right, 120 * 8 - 1);
-		-- writeline(out_file, out_line);
+		in_data <= (others => '0');
+		wait until rising_edge(in_clk);
+		
+		in_write <= '0';
 
 		file_close(in_file);
-		file_close(out_file);
 
 		wait;
 	end process send_kernel;
+
+	--Sends inputs and reads outputs of UUT
+	receive_output : process                                         
+
+		variable out_line			: line;
+		variable out_column_vect	: std_logic_vector(119 downto 0);
+
+	begin    
+
+		--File opening
+		file_open(out_file, "image_output.out", write_mode);  
+
+		--Waiting until UUT is ready
+		wait until rising_edge(out_ready);
+		wait until rising_edge(in_clk);
+
+		-- Writing output in file
+		while out_ready = '1' loop
+			for i in 0 to 14 loop
+				for j in 0 to 7 loop
+					out_column_vect(i * 8 + j) := out_data(i)(j);
+				end loop;
+			end loop;
+			write(out_line, out_column_vect);
+			writeline(out_file, out_line);
+			
+			wait until rising_edge(in_clk);
+		end loop;
+
+		file_close(out_file);
+
+		wait;
+	end process receive_output;
 	
 end image_testbench;

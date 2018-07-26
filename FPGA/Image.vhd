@@ -20,7 +20,8 @@ end Image;
 architecture image of Image is
 
 	signal shift_register 	: image_slice;
-	signal pixel_count 		: unsigned (15 downto 0) := (others => '0');
+	signal pixel_count_in	: unsigned (11 downto 0) := (others => '0');
+	signal pixel_count_out	: unsigned (11 downto 0) := (others => '0');
 
 begin
 
@@ -32,29 +33,33 @@ begin
 	begin
 
 		if rising_edge(in_clk) then
+
 			if in_write = '1' then
 				
 				shift_register((image_slice_width * image_slice_height - 1) downto 1) <= 
 					shift_register((image_slice_width * image_slice_height - 2) downto 0);
 
 				shift_register(0) <= in_data;
-				pixel_count <= pixel_count + 1;
-
-				if pixel_count > (image_slice_width * (image_slice_height - 1) + 1) then
-					
-					out_ready <= '1';
-
-					for index in 0 to (kernel_dimension - 1) loop
-						out_data(index) <= shift_register(index * image_slice_width + 1);
-					end loop;
-
-				end if;
+				pixel_count_in <= pixel_count_in + 1;
 				
 			end if;
+
+			if pixel_count_out > pixel_count_in then
+
+				out_ready <= '0';
+
+			elsif pixel_count_in > image_slice_width * (image_slice_height - 1) + 1 then
+				
+				out_ready <= '1';
+
+				for index in 0 to (kernel_dimension - 1) loop
+					out_data(index) <= shift_register(index * image_slice_width + 1);
+				end loop;
+				pixel_count_out <= pixel_count_out + kernel_dimension;
+
+			end if;
+
 		end if;
 
 	end process;
-
 end image;
-
-
