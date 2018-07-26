@@ -40,8 +40,8 @@ architecture linear_filter_testbench of LinearFilterTestbench is
 		in_kernel_ready 			: in std_logic;
 		in_window_ready 			: in std_logic;
 		
-		out_ready 					: out std_logic
-		out_data 					: out pixel;
+		out_ready 					: out std_logic;
+		out_data 					: out pixel
 		);
 	end component;
 
@@ -64,11 +64,12 @@ begin
 	clk_process : process                                                                               
 	begin      
 		in_clk <= '1';
-		in_kernel_ready <= '1'
-		in_window_ready <= '1'
+		in_kernel_ready <= '1';
+		in_window_ready <= '1';
 		wait for clk_period/2; 
 
-		in_write <= '0';
+		in_kernel_ready <= '0';
+		in_window_ready <= '0';
 		in_clk <= '0';
 		wait for clk_period/2; 
 													
@@ -84,7 +85,8 @@ begin
 		variable in_kernel_data_var	: window_matrix;
 		variable pixel_var			: pixel;
 		variable pixel_vect_var		: std_logic_vector(7 downto 0);
-		variable space_char			: character;
+		variable counter			: integer 			:= 0;
+		variable zero				: std_logic_vector(7 downto 0)		:= "00000000";
 
 	begin    
 		--File opening
@@ -95,30 +97,32 @@ begin
 		while not endfile(in_file) loop
 			readline(in_file, in_line);	
 			read(in_line, pixel_vect_var);
-			read(in_line, space_char);
 
 			for i in 0 to 7 loop
 				pixel_var(i) := pixel_vect_var(i);
 			end loop;
-			in_window_data_var := in_window_data_var & pixel_var;
+			in_window_data_var (counter) := pixel_var;
 
 			read(in_line, pixel_vect_var);
 			for i in 0 to 7 loop
 				pixel_var(i) := pixel_vect_var(i);
 			end loop;
-			in_kernel_data_var := in_kernel_data_var & pixel_var;
+			in_kernel_data_var (counter) := pixel_var;
+			counter := counter + 1;
 		end loop;
 		
 		in_window_data <= in_window_data_var;
 		in_kernel_data <= in_kernel_data_var;
+		
 
-		--Writing output in file
+		wait for 100 ns;
+
 		if (out_ready = '1') then
-			pixel_var := out_data
+			pixel_var := out_data;
 			for i in 0 to 7 loop
 				pixel_vect_var(i) := pixel_var(i);
 			end loop;
-			write(out_line, out_pixel_vect, right, 8);
+			write(out_line, pixel_vect_var, right, 8);
 			writeline(out_file, out_line);
 		end if;
 

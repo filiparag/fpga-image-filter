@@ -14,7 +14,6 @@ entity ImageTestbench is
 end ImageTestbench;
 
 
-
 architecture image_testbench of ImageTestbench is
 
 	-- constants   
