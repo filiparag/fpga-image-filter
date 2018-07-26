@@ -71,14 +71,14 @@ architecture image_testbench of ImageTestbench is
 	--Sends inputs and reads outputs of UUT
 	send_kernel : process                                         
 
-	variable in_line			: line;
-	variable out_line			: line;
-	variable in_pixel	 		: pixel;
-	variable out_pixel    		: pixel;
-	variable in_pixel_vect 		: std_logic_vector(7 downto 0);
-	variable out_pixel_vect 	: std_logic_vector(7 downto 0);
-	variable out_column_vect	: std_logic_vector((120 * 8 - 1) downto 0);
-	variable temp		: std_logic_vector(7 downto 0) := (others => '0');
+		variable in_line			: line;
+		variable out_line			: line;
+		variable in_pixel	 		: pixel;
+		variable out_pixel    		: pixel;
+		variable in_pixel_vect 		: std_logic_vector(7 downto 0);
+		variable out_pixel_vect 	: std_logic_vector(7 downto 0);
+		variable out_column_vect	: std_logic_vector(119 downto 0);
+		variable temp				: std_logic_vector(7 downto 0) := (others => '0');
 
 	begin    
 		--File opening
@@ -102,28 +102,40 @@ architecture image_testbench of ImageTestbench is
 
 		--Waiting until UUT is ready
 		-- wait until rising_edge(out_ready);
+		-- wait until out_ready = '1';
 
-		--Writing output in file
-		-- if (out_ready = '1') then
-		-- 	for i in 1 to 15 loop
-		-- 		out_pixel := out_data(i);
-		-- 		--Converting vector to std_vector
-		-- 		for j in 0 to 7 loop
-		-- 			-- out_pixel_vect(j) := out_pixel(j);
-		-- 			out_column_vect(i*8 + j) := out_pixel(j);
-		-- 		end loop;
-		-- 		-- out_column_vect(i*8 downto (i-1)*8) <= out_pixel_vect(7 downto 0);
-		-- 		write(out_line, out_column_vect, right, 120 * 8 - 1);
-		-- 		writeline(out_file, out_line);
-		-- 	end loop;
-		-- end if;
+		-- Writing output in file
+		if out_ready = '1' then
+			for i in 0 to 14 loop
+				for j in 0 to 7 loop
+					-- out_pixel_vect(i) := out_data(j)(i);
+					out_column_vect(i * 8 + j) := out_data(i)(j);
+				end loop;
+				-- out_column_vect(i * 8 to (i + 1) * 8 - 1) := out_pixel_vect(7 downto 0);
+				-- out_pixel := out_data(i);
+				-- --Converting vector to std_vector
+				-- for j in 0 to 7 loop
+				-- 	-- out_pixel_vect(j) := out_pixel(j);
+				-- 	out_column_vect(i*8 + j) := out_pixel(j);
+				-- end loop;
+				-- -- out_column_vect(i*8 downto (i-1)*8) <= out_pixel_vect(7 downto 0);
+			end loop;
+			write(out_line, out_column_vect);
+			writeline(out_file, out_line);
 
-		write(out_line, temp, right, 8);
-		writeline(out_file, out_line);
+			wait until rising_edge(in_clk);
+		end if;
+
+		-- wait until rising_edge(out_ready);
+
+		-- write(out_line, temp, right, 8);
+		-- write(out_line, out_column_vect, right, 120 * 8 - 1);
+		-- writeline(out_file, out_line);
 
 		file_close(in_file);
 		file_close(out_file);
 
 		wait;
 	end process send_kernel;
+	
 end image_testbench;

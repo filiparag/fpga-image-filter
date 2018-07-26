@@ -40,12 +40,12 @@ begin
 				shift_register(0) <= in_data;
 				pixel_count <= pixel_count + 1;
 
-				if pixel_count >= (image_slice_width * (image_slice_height - 1) + 1) then
+				if pixel_count > (image_slice_width * (image_slice_height - 1) + 1) then
 					
 					out_ready <= '1';
 
 					for index in 0 to (kernel_dimension - 1) loop
-						out_data(index) <= shift_register(image_slice_width - kernel_dimension + 1);
+						out_data(index) <= shift_register(index * image_slice_width + 1);
 					end loop;
 
 				end if;
