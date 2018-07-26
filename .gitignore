@@ -3,5 +3,7 @@
 !.gitignore
 !**.vhd
 !**.vht
+!**.py
 !**.in
 !**.out
+!**.test
