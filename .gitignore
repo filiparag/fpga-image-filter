@@ -1,6 +1,16 @@
 /*
 *
+
+!*/
 !.gitignore
+
+!*.vhd
+!*.vht
+!*.py
+!*.in
+!*.out
+!*.test
+
 !**.vhd
 !**.vht
 !**.py
