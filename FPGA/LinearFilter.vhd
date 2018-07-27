@@ -30,26 +30,16 @@ begin
 	)
 		variable param	 	: unsigned(15 downto 0) 	:= (others => '0');
 		variable result 	: unsigned(30 downto 0)		:= (others => '0');
-<<<<<<< Updated upstream
 		variable counter 	: unsigned(12 downto 0) 	:= (others => '0');
 	begin
 		if rising_edge(in_clk) then
 			counter := (others => '0');
-=======
-		variable counter 	: unsigned(10 downto 0) 	:= (others => '0');
-	begin
-		if rising_edge(in_clk) then
-			--counter := "00000000";
->>>>>>> Stashed changes
 			for i in 0 to 14 loop
 				for j in 0 to 14 loop
 					param := unsigned (in_kernel_data (i * kernel_dimension + j)) * unsigned(in_window_data (i * kernel_dimension + j));
 					result := result + param;
-<<<<<<< Updated upstream
-					counter := counter + unsigned(in_kernel_data (i * kernel_dimension + j));
-=======
 					counter := counter + unsigned(in_window_data (i * kernel_dimension + j));
->>>>>>> Stashed changes
+
 				end loop;
 			end loop;
 			if counter /= "0000000000" then
