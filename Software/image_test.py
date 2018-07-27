@@ -14,15 +14,18 @@ def decode(file):
 
     columns = file.split('\n')[:-1]
 
-    image = np.zeros((256,60), dtype=np.uint8)
+    image = np.zeros((60,256), dtype=np.uint8)
 
-    for c in range(256):
-        column = list(columns[c])
-        for p in range(0, len(column), 8):
-            pixel = np.packbits(list(map(lambda x: int(x), column[p:p+8])))[0]
-            image[c][p // 8] = pixel
+    for c in range(len(columns)):
+        columns[c] = [int(columns[c][i:i+8], 2) for i in range(0, len(columns[c]), 8)]
+    columns = np.array(columns)
 
-    image = np.flip(image.T, axis=1)
+    for c in range(len(columns)):
+        row, column = c // 256, c % 256
+        print(row, column)
+        image[row][column] = columns[column][0]
+
+    # image = np.flip(image, axis=1)
     return image
 
 
@@ -32,16 +35,16 @@ with open('image_output.in', 'r') as file:
 image_diff = image - image_out
 error = np.count_nonzero(image_diff)
 
-print('Error percentage : %s percent' % round(error / image.size, 2))
+print('Error percentage : %s percent' % (round(error / image.size, 2) * 100))
 print('Error count      : %s / %s pixel(s)' % (error, image.size))
 
 plt.suptitle('Image test')
 plt.subplot(3,1,1)
-plt.imshow(image_out)
+plt.imshow(image_out, vmin=0, vmax=255)
 plt.subplot(3,1,2)
-plt.imshow(image)
+plt.imshow(image, vmin=0, vmax=255)
 plt.subplot(3,1,3)
-plt.imshow(image_diff)
+plt.imshow(image_diff, vmin=0, vmax=255)
 # plt.figure(1)
 # plt.imshow(image_out, cmap='gray')
 # plt.figure(2)
