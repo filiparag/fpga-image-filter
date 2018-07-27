@@ -15,17 +15,23 @@ def decode(file):
     columns = file.split('\n')[:-1]
 
     image = np.zeros((60,256), dtype=np.uint8)
-
     for c in range(len(columns)):
         columns[c] = [int(columns[c][i:i+8], 2) for i in range(0, len(columns[c]), 8)]
     columns = np.array(columns)
+    # plt.imshow(columns[-520:])
+    # plt.figure(2)
+
+    print(len(columns))
 
     for c in range(len(columns)):
         row, column = c // 256, c % 256
-        print(row, column)
-        image[row][column] = columns[column][0]
+        image[row:row+15, column] = columns[c]
+        # if column == 0:
+        #     print(row,row+15, column, c)
+            
+    image[-1, :] = columns[len(columns) - len(image[0]):, -1]
 
-    # image = np.flip(image, axis=1)
+    image = np.flip(image, axis=1)
     return image
 
 
