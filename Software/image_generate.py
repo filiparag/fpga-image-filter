@@ -4,19 +4,20 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # image = list(range(15**2))
-image = np.zeros((15,256))
+image = np.zeros((60,256))
 
 # image = np.array(list(map(lambda p: p / 225 * 256, image)), dtype=np.uint8).reshape((15,15))
 
-for x in range(len(image)):
-    for y in range(len(image[0])):
-        image[x][y] = (x / (len(image) - 1) * 127) + (y / (len(image[0]) - 1) * 127)
+for s in range(4):
+    for y in range(len(image) // 4):
+        for x in range(len(image[0])):
+            image[s * 15 + y][x] = np.floor((y / (len(image) - 1) * ((s + 1) * 32)) + (x / (len(image[0]) - 1) * ((s + 1) * 32)))
 
 image = np.array(image, dtype=np.uint8)
 
 with open('image_input.in', 'w') as file:
     pixels = []
-    for p in image.reshape(15*256,1):
+    for p in image.reshape(60*256,1):
         pixels.append((np.binary_repr(p[0], width=8)))
     file.write('\n'.join(pixels))
 
