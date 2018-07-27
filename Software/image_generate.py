@@ -22,11 +22,46 @@ with open('image_input.in', 'w') as file:
     file.write('\n'.join(pixels))
 
 with open('image_output.in', 'w') as file:
-    for column in image.T:
+#     for column in image.T:
+#         column_in = ""
+#         for pixel in column:
+#             column_in += str(np.binary_repr(pixel, width=8))
+#         file.write(column_in + '\n')
+
+    output = []
+
+    for r in range(0, len(image) - 15):
+        for c in range(len(image[0])):
+            output.append(image[r:r+15].T[c])
+
+    for column in output:
         column_in = ""
         for pixel in column:
             column_in += str(np.binary_repr(pixel, width=8))
-        file.write(column_in + '\n')
+        file.write(column_in + '\n')        
 
-plt.imshow(image, cmap='gray')
-plt.show()
+# plt.ion()
+# fig = plt.figure()
+# ax = fig.add_subplot(2,1,1)
+# bx = fig.add_subplot(2,1,2)
+
+# for i in range(230, len(output) - 15):
+#     ax.imshow(output[i:i+15], vmin=0, vmax=100)
+
+#     position = np.copy(image)
+#     position[i // 15 % 250:i // 15 % 250 + 15].T[i:i+15] = 255
+
+#     bx.imshow(position, vmin=0, vmax=100)
+    
+#     fig.canvas.draw()
+#     fig.canvas.flush_events()
+
+plt.subplot(2,2,1)
+plt.imshow(output[250:265], vmin=0, vmax=255)
+plt.subplot(2,2,2)
+plt.imshow(output[255:270], vmin=0, vmax=255)
+# plt.imshow(image[0:15].T[250:265], vmin=0, vmax=255)
+plt.subplot(2,2,3)
+plt.imshow(image, vmin=0, vmax=255)
+
+# plt.show()
