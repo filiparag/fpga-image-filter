@@ -11,6 +11,7 @@ entity Image is
 	(
 		in_clk			: in std_logic;
 		in_write		: in std_logic;
+		in_padding		: in std_logic;
 		in_data			: in pixel;
 
 		out_ready		: out std_logic := '0';
@@ -22,14 +23,15 @@ end Image;
 architecture image of Image is
 
 	signal shift_register 	: image_slice;
-	signal pixel_count_in	: unsigned (11 downto 0) := (others => '0');
-	signal pixel_count_out	: unsigned (11 downto 0) := (others => '0');
+	signal pixel_count_in	: unsigned (19 downto 0) := (others => '0');
+	signal pixel_count_out	: unsigned (19 downto 0) := (others => '0');
 
 begin
 
 	process (
 		in_clk,
 		in_write,
+		in_padding,
 		in_data
 	)
 	begin
@@ -46,18 +48,30 @@ begin
 				
 			end if;
 
-			if pixel_count_out > pixel_count_in then
+			if in_write = '0' then
 
 				out_ready <= '0';
 
-			elsif pixel_count_in > image_slice_width * (image_slice_height - 1) + 1 then
-				
-				out_ready <= '1';
+			else
 
-				for index in 0 to (kernel_dimension - 1) loop
-					out_data(index) <= shift_register(index * image_slice_width + 1);
-				end loop;
-				pixel_count_out <= pixel_count_out + kernel_dimension;
+				if in_padding = '0' then
+				
+					if pixel_count_in > image_slice_width * (image_slice_height - 1) + 1 then
+						
+						out_ready <= '1';
+
+						for index in 0 to (kernel_dimension - 1) loop
+							out_data(index) <= shift_register(index * image_slice_width + 1);
+							pixel_count_out <= pixel_count_out + 1;
+						end loop;
+
+					end if;
+
+				else
+				
+					out_ready <= '0';
+
+				end if;
 
 			end if;
 

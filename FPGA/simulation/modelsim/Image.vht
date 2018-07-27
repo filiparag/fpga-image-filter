@@ -24,6 +24,7 @@ architecture image_testbench of ImageTestbench is
 	signal out_data 		: kernel_row;
 	signal in_clk 			: std_logic;
 	signal in_write			: std_logic;
+	signal in_padding		: std_logic;
 	signal out_ready 		: std_logic;
 
 	--files
@@ -35,6 +36,7 @@ architecture image_testbench of ImageTestbench is
 		port (
 			in_clk 			: in std_logic;
 			in_write 		: in std_logic;
+			in_padding 		: in std_logic;
 			out_ready 		: buffer std_logic;
 			out_data 		: buffer kernel_row;
 			in_data 		: in pixel
@@ -48,6 +50,7 @@ architecture image_testbench of ImageTestbench is
 			in_clk => in_clk,
 			in_data => in_data,
 			in_write => in_write,
+			in_padding => in_padding,
 			out_data => out_data,
 			out_ready => out_ready
 		);
@@ -77,13 +80,14 @@ architecture image_testbench of ImageTestbench is
 		variable in_pixel_vect 		: std_logic_vector(7 downto 0);
 		variable out_pixel_vect 	: std_logic_vector(7 downto 0);
 		variable out_column_vect	: std_logic_vector(119 downto 0);
-		variable temp				: std_logic_vector(7 downto 0) := (others => '0');
+		variable pixel_count		: unsigned (19 downto 0) := (others => '0');
 
 	begin    
 		--File opening
 		file_open(in_file, "image_input.in",  read_mode);
 				
 		in_write <= '1';
+		in_padding <= '0';
 
 		--Reading the in file
 		while not endfile(in_file) loop
@@ -95,12 +99,17 @@ architecture image_testbench of ImageTestbench is
 				in_pixel(i) := in_pixel_vect(i);
 			end loop;
 			in_data <= in_pixel;
+			pixel_count := pixel_count + 1;
+
+			if pixel_count > 15104 + 2 then
+				in_padding <= '1';
+			end if;
 
 			wait until rising_edge(in_clk);
 		end loop;
 		
-		in_data <= (others => '0');
-		wait until rising_edge(in_clk);
+		-- in_data <= (others => '0');
+		-- wait until rising_edge(in_clk);
 		
 		in_write <= '0';
 

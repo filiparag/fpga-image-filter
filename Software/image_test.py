@@ -25,17 +25,17 @@ def decode(file):
 
     for c in range(len(columns)):
         row, column = c // 256, c % 256
-        image[row:row+15, column] = columns[c]
+        image[row, column] = columns[c][0]
         # if column == 0:
         #     print(row,row+15, column, c)
             
-    image[-1, :] = columns[len(columns) - len(image[0]):, -1]
+    # image[-1, :] = columns[len(columns) - len(image[0]):, -1]
 
     image = np.flip(image, axis=1)
     return image
 
 
-with open('image_output.in', 'r') as file:
+with open('image_output.out', 'r') as file:
     image_out = np.flip(decode(file.read()), axis=1)
     
 image_diff = image - image_out
@@ -50,7 +50,7 @@ plt.imshow(image_out, vmin=0, vmax=255)
 plt.subplot(3,1,2)
 plt.imshow(image, vmin=0, vmax=255)
 plt.subplot(3,1,3)
-plt.imshow(image_diff, vmin=0, vmax=255)
+plt.imshow(image_diff)
 # plt.figure(1)
 # plt.imshow(image_out, cmap='gray')
 # plt.figure(2)
