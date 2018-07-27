@@ -24,8 +24,9 @@ architecture linear_filter_testbench of LinearFilterTestbench is
 	signal in_kernel_ready 			: std_logic;
 	signal in_window_ready 			: std_logic;
 
-	signal out_ready 				: std_logic;
 	signal out_data 				: pixel;
+	signal out_ready 				: std_logic;
+
 
 	--files
 	file in_file 					: text;
