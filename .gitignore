@@ -7,13 +7,9 @@
 !*.vhd
 !*.vht
 !*.py
-!*.in
-!*.out
-!*.test
+# !*.test
 
 !**.vhd
 !**.vht
 !**.py
-!**.in
-!**.out
-!**.test
+# !**.test
