@@ -30,18 +30,20 @@ begin
 	)
 		variable param	 	: unsigned(15 downto 0) 	:= (others => '0');
 		variable result 	: unsigned(30 downto 0)		:= (others => '0');
-		variable counter 	: unsigned(10 downto 0) 	:= (others => '0');
+		variable counter 	: unsigned(12 downto 0) 	:= (others => '0');
 	begin
 		if rising_edge(in_clk) then
-			--counter := "00000000";
+			counter := (others => '0');
 			for i in 0 to 14 loop
 				for j in 0 to 14 loop
 					param := unsigned (in_kernel_data (i * kernel_dimension + j)) * unsigned(in_window_data (i * kernel_dimension + j));
 					result := result + param;
-					counter := counter + unsigned(in_window_data (i * kernel_dimension + j));
+					counter := counter + unsigned(in_kernel_data (i * kernel_dimension + j));
 				end loop;
 			end loop;
-			result := result / counter;
+			if counter /= "0000000000" then
+				result := result / counter;
+			end if;
 			for i in 0 to 7 loop
 				out_data(i) <= result(i);
 			end loop;
