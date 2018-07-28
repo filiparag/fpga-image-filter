@@ -91,22 +91,27 @@ BEGIN
 
 	begin
 
+		in_ready <= '0';
+
+		wait until rising_edge(in_clk);
+
 		file_open(in_file, "data_proxy.in.test", read_mode);
-
-		in_ready <= '1';
-
+		
 		while not endfile(in_file) loop
 			readline(in_file, in_line);	
 			read(in_line, in_pixel_vect);
-
+			
 			for i in 0 to 7 loop
 				in_pixel(i) := in_pixel_vect(i);
-			end loop;
-			
+				end loop;
+				
+			in_ready <= '1';
 			in_data <= in_pixel;
 
 			wait until rising_edge(in_clk);
 		end loop;
+
+		in_ready <= '0';
 
 		file_close(in_file);
 
@@ -128,14 +133,18 @@ BEGIN
 
 		while out_kernel_write = '1' loop
 
-			out_pixel := out_kernel;
+			wait for clk_period / 2;
 
-			for j in 0 to 7 loop
-				out_pixel_vect(j) := out_pixel(j);
-			end loop;
+			if out_kernel_write = '1' then
+
+				for j in 0 to 7 loop
+					out_pixel_vect(j) := out_kernel(j);
+				end loop;
+				
+				write(out_line, out_pixel_vect);
+				writeline(out_file_kernel, out_line);
 			
-			write(out_line, out_pixel_vect);
-			writeline(out_file_kernel, out_line);
+			end if;
 
 			wait until rising_edge(in_clk);
 
@@ -161,14 +170,18 @@ BEGIN
 
 		while out_image_write = '1' loop
 
-			out_pixel := out_image;
+			wait for clk_period / 2;
 
-			for j in 0 to 7 loop
-				out_pixel_vect(j) := out_pixel(j);
-			end loop;
-			
-			write(out_line, out_pixel_vect);
-			writeline(out_file_image, out_line);
+			if out_image_write = '1' then
+
+				for j in 0 to 7 loop
+					out_pixel_vect(j) := out_image(j);
+				end loop;
+				
+				write(out_line, out_pixel_vect);
+				writeline(out_file_image, out_line);
+
+			end if;
 
 			wait until rising_edge(in_clk);
 

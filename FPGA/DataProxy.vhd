@@ -26,13 +26,13 @@ architecture data_proxy of DataProxy is
 begin
 
 	process (
-	in_clk
+		in_clk
 	)
 	begin
 
 		if rising_edge(in_clk) then
 			if in_ready = '1' then
-				if pixel_count < (kernel_dimension * kernel_dimension - 1) then
+				if pixel_count < (kernel_dimension * kernel_dimension) then
 					pixel_count <= pixel_count + 1;
 					out_kernel_write <= '1';
 					out_image_write <= '0';
@@ -42,6 +42,9 @@ begin
 					out_image_write <= '1';
 					out_image <= in_data;
 				end if;
+			else
+				out_kernel_write <= '0';
+				out_image_write <= '0';
 			end if;
 		end if;
 	end process;
