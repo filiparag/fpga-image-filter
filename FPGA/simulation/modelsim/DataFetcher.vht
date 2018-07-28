@@ -1,58 +1,62 @@
--- Copyright (C) 2018  Intel Corporation. All rights reserved.
--- Your use of Intel Corporation's design tools, logic functions 
--- and other software and tools, and its AMPP partner logic 
--- functions, and any output files from any of the foregoing 
--- (including device programming or simulation files), and any 
--- associated documentation or information are expressly subject 
--- to the terms and conditions of the Intel Program License 
--- Subscription Agreement, the Intel Quartus Prime License Agreement,
--- the Intel FPGA IP License Agreement, or other applicable license
--- agreement, including, without limitation, that your use is for
--- the sole purpose of programming logic devices manufactured by
--- Intel and sold by Intel or its authorized distributors.  Please
--- refer to the applicable agreement for further details.
-
--- ***************************************************************************
--- This file contains a Vhdl test bench template that is freely editable to   
--- suit user's needs .Comments are provided in each section to help the user  
--- fill out necessary details.                                                
--- ***************************************************************************
--- Generated on "07/28/2018 19:34:23"
-                                                            
--- Vhdl Test Bench template for design  :  DataFetcher
--- 
--- Simulation tool : ModelSim-Altera (VHDL)
--- 
-
-LIBRARY ieee;                                               
-USE ieee.std_logic_1164.all;                                
+library ieee;                                               
+use ieee.std_logic_1164.all;  
+use ieee.numeric_std.all;
+use ieee.std_logic_textio.all;
+use STD.textio.all;                                                             
+use work.CustomTypes.all;                             
 
 ENTITY DataFetcher_vhd_tst IS
 END DataFetcher_vhd_tst;
+
 ARCHITECTURE DataFetcher_arch OF DataFetcher_vhd_tst IS
--- constants                                           
-constant clk_period			: time := 10 ns;      
--- signals                                                   
-SIGNAL in_clk : STD_LOGIC;
-SIGNAL in_reset : STD_LOGIC;
-SIGNAL in_rx : STD_LOGIC;
-SIGNAL out_tx : STD_LOGIC;
-COMPONENT DataFetcher
-	PORT (
-	in_clk : IN STD_LOGIC;
-	in_reset : IN STD_LOGIC;
-	in_rx : IN STD_LOGIC;
-	out_tx : BUFFER STD_LOGIC
-	);
-END COMPONENT;
+	-- constants                                           
+	constant clk_period			: time 						:= 9 ns;
+	constant clks_per_bit		: unsigned (19 downto 0) 	:= "00000000001111000010"; 
+	--   (9 * 1000000000) clks / 11520 bits
+	-- = 781250 clks / bit per second <=> 10111110101111000010
+	
+	file in_file 				: text;
+	file out_file				: text;
+
+	-- signals                                                   
+	signal in_clk			: std_logic;
+	signal in_reset			: std_logic;
+	signal in_rx			: std_logic;
+	signal out_tx			: std_logic;
+	signal out_interrupt	: std_logic;
+	signal out_readdata 	: std_logic_vector(0 to 7);
+	signal in_writedata 	: std_logic_vector(0 to 7);
+	signal in_read 			: std_logic;
+	signal in_write 		: std_logic;
+
+	COMPONENT DataFetcher
+		PORT (
+			in_clk			: in 		std_logic;
+			in_reset		: in 		std_logic;
+			in_rx			: in 		std_logic;
+			out_tx			: buffer	std_logic;
+			out_interrupt	: buffer 	std_logic;
+			out_readdata 	: buffer	std_logic_vector(0 to 7);
+			in_writedata 	: in		std_logic_vector(0 to 7);
+			in_read 		: in		std_logic;
+			in_write 		: in		std_logic
+		);
+	END COMPONENT;
+
 BEGIN
+	
 	i1 : DataFetcher
 	PORT MAP (
 -- list connections between master ports and signals
-	in_clk => in_clk,
-	in_reset => in_reset,
-	in_rx => in_rx,
-	out_tx => out_tx
+		in_clk => in_clk,
+		in_reset => in_reset,
+		in_rx => in_rx,
+		out_tx => out_tx,
+		out_interrupt => out_interrupt,
+		out_readdata => out_readdata,
+		in_writedata => in_writedata,
+		in_read => in_read,
+		in_write => in_write
 	);
 
 	clk_process : process                                                                               
@@ -65,4 +69,39 @@ BEGIN
 													
 	end process clk_process;
 
-END DataFetcher_arch;
+	uart_send : process
+
+		variable in_line		: line;
+		variable in_bit			: std_logic;
+		variable clock_counter	: unsigned (19 downto 0) := clks_per_bit - 1;
+
+	begin
+
+		wait until rising_edge(in_clk);
+
+		file_open(in_file, "data_fetcher.out.test", read_mode);
+		
+		in_read <= '1';
+
+		while not endfile(in_file) loop
+			readline(in_file, in_line);	
+			read(in_line, in_bit);
+
+			in_rx <= in_bit;
+
+			while clock_counter > 0 loop
+				clock_counter := clock_counter - 1;
+				wait until rising_edge(in_clk);
+			end loop;
+
+			clock_counter := clks_per_bit - 1;
+
+		end loop;
+
+		file_close(in_file);
+
+		wait;
+		
+	end process ;
+
+end DataFetcher_arch;
