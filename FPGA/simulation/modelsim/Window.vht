@@ -58,10 +58,10 @@ begin
 	clk_process : process                                                                               
 	begin      
 		in_clk <= '1';
-		in_ready <= '1';
+		-- in_ready <= '1';
 		wait for clk_period/2; 
 
-		in_ready <= '0';
+		-- in_ready <= '0';
 		in_clk <= '0';
 		wait for clk_period/2; 
 													
@@ -79,11 +79,12 @@ begin
 
 	begin    
 		--File opening
-		file_open(in_file, "linear_filter_test.in",  read_mode);
-		file_open(out_file, "linear_filter_test.out", write_mode);
+		file_open(in_file, "window_test.in",  read_mode);
+		file_open(out_file, "window_test.out", write_mode);
 				
 		--Reading the in file
 		while not endfile(in_file) loop
+			in_ready <= '1';
 			readline(in_file, in_line);	
 			for i in 0 to 14 loop
 				read(in_line, pixel_vect_var);
@@ -97,16 +98,16 @@ begin
 				for i in 0 to (kernel_dimension * kernel_dimension - 1) loop
 					pixel_var := out_data(i);
 					for j in 0 to 7 loop
-						pixel_vect_var(i) := pixel_var(i);
+						pixel_vect_var(j) := pixel_var(j);
 					end loop;
+					write(out_line, pixel_vect_var, right, 8);
 				end loop;
-				write(out_line, pixel_vect_var, right, 8);
 				writeline(out_file, out_line);
 			end if;
-
+			
 			wait until rising_edge(in_clk);
 		end loop;
-
+		in_ready <= '0';
 		file_close(in_file);
 		file_close(out_file);
 
