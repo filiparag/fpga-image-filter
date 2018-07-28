@@ -11,8 +11,8 @@ entity DataProxy is
 		in_ready		: in std_logic;
 		in_data			: in pixel;
 
-		out_image_write	: out std_logic;
-		out_kernel_write: out std_logic;
+		out_image_write	: out std_logic := '0';
+		out_kernel_write: out std_logic := '0';
 		out_image		: out pixel;
 		out_kernel		: out pixel
 	);
@@ -32,7 +32,7 @@ begin
 
 		if rising_edge(in_clk) then
 			if in_ready = '1' then
-				if pixel_count < (kernel_dimension * kernel_dimension) then
+				if pixel_count < (kernel_dimension * kernel_dimension - 1) then
 					pixel_count <= pixel_count + 1;
 					out_kernel_write <= '1';
 					out_image_write <= '0';

@@ -64,4 +64,4 @@ plt.imshow(output[255:270], vmin=0, vmax=255)
 plt.subplot(2,2,3)
 plt.imshow(image, vmin=0, vmax=255)
 
-# plt.show()
+plt.show()
