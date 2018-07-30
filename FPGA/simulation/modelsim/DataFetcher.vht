@@ -69,39 +69,48 @@ BEGIN
 													
 	end process clk_process;
 
-	uart_send : process
+	-- uart_send : process
 
-		variable in_line		: line;
-		variable in_bit			: std_logic;
-		variable clock_counter	: unsigned (19 downto 0) := clks_per_bit - 1;
+	-- 	variable in_line		: line;
+	-- 	variable in_bit			: std_logic;
+	-- 	variable clock_counter	: unsigned (19 downto 0) := clks_per_bit - 1;
 
-	begin
+	-- begin
 
-		wait until rising_edge(in_clk);
-
-		file_open(in_file, "data_fetcher.out.test", read_mode);
+	-- 	file_open(in_file, "data_fetcher.out.test", read_mode);
 		
-		in_read <= '1';
+	-- 	in_read <= '1';
 
-		while not endfile(in_file) loop
-			readline(in_file, in_line);	
-			read(in_line, in_bit);
+	-- 	-- start bit
+	-- 	in_rx <= '1';
+	-- 	while clock_counter > 0 loop
+	-- 		clock_counter := clock_counter - 1;
+	-- 		wait until rising_edge(in_clk);
+	-- 	end loop;
+	-- 	clock_counter := clks_per_bit - 1;
+	-- 	-- start bit
 
-			in_rx <= in_bit;
+	-- 	wait until rising_edge(in_clk);
 
-			while clock_counter > 0 loop
-				clock_counter := clock_counter - 1;
-				wait until rising_edge(in_clk);
-			end loop;
+	-- 	while not endfile(in_file) loop
+	-- 		readline(in_file, in_line);	
+	-- 		read(in_line, in_bit);
 
-			clock_counter := clks_per_bit - 1;
+	-- 		in_rx <= in_bit;
 
-		end loop;
+	-- 		while clock_counter > 0 loop
+	-- 			clock_counter := clock_counter - 1;
+	-- 			wait until rising_edge(in_clk);
+	-- 		end loop;
 
-		file_close(in_file);
+	-- 		clock_counter := clks_per_bit - 1;
 
-		wait;
+	-- 	end loop;
+
+	-- 	file_close(in_file);
+
+	-- 	wait;
 		
-	end process ;
+	-- end process;
 
 end DataFetcher_arch;

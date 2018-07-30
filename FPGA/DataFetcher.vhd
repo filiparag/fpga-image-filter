@@ -10,12 +10,12 @@ entity DataFetcher is
 		in_clk			: in 	std_logic;
 		in_reset		: in 	std_logic;
 		in_rx			: in 	std_logic;
-		out_tx			: out 	std_logic;
-		out_interrupt	: out 	std_logic;
-		out_readdata 	: out	std_logic_vector(0 to 7);
-		in_writedata 	: in	std_logic_vector(0 to 7);
-		in_read 		: in	std_logic;
-		in_write 		: in	std_logic
+		out_tx			: out 	std_logic
+		-- in_interrupt	: out 	std_logic;
+		-- in_readdata 	: out	std_logic_vector(0 to 7);
+		-- out_writedata 	: in	std_logic_vector(0 to 7);
+		-- in_read 		: in	std_logic;
+		-- in_write 		: in	std_logic
 	);
 
 end DataFetcher;
@@ -53,15 +53,27 @@ begin
 --		rs232_0_address    => CONNECTED_TO_rs232_0_address,    -- rs232_0_avalon_rs232_slave.address
 --		rs232_0_chipselect => CONNECTED_TO_rs232_0_chipselect, --                           .chipselect
 --		rs232_0_byteenable => s_byte_enable, --                           .byteenable
-		rs232_0_read       => in_read,       --                           .read
-		rs232_0_write      => in_write,      --                           .write
-		rs232_0_writedata  => in_writedata,  --                           .writedata
-		rs232_0_readdata   => out_readdata,   --                           .readdata
-		rs232_0_irq        => out_interrupt,        --          rs232_0_interrupt.irq
+		rs232_0_read       => s_read,       --                           .read
+		rs232_0_write      => s_write,      --                           .write
+		rs232_0_writedata  => s_writedata,  --                           .writedata
+		rs232_0_readdata   => s_readdata,   --                           .readdata
+		rs232_0_irq        => s_interrupt,        --          rs232_0_interrupt.irq
 		rs232_0_UART_RXD   => in_rx,   -- rs232_0_external_interface.RXD
 		rs232_0_UART_TXD   => out_tx,   --                           .TXD
 		clk_clk            => in_clk,            --                        clk.clk
 		reset_reset_n      => in_reset       --                      reset.reset_n
 	);
+
+	read_uart : process( in_clk )
+	begin
+		
+		if rising_edge(in_clk) then
+
+			s_write <= '1';
+			s_writedata <= "10101010";
+
+		end if;
+
+	end process ;
 
 end data_fetcher;
