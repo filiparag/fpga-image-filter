@@ -72,59 +72,75 @@ architecture image_testbench of ImageTestbench is
 
 		variable in_line			: line;
 		variable out_line			: line;
-		variable pixel_var			: pixel;
-		variable pixel_vect_var		: std_logic_vector(7 downto 0);
+		variable in_pixel	 		: pixel;
+		variable out_pixel    		: pixel;
+		variable in_pixel_vect 		: std_logic_vector(7 downto 0);
+		variable out_pixel_vect 	: std_logic_vector(7 downto 0);
+		variable out_column_vect	: std_logic_vector(119 downto 0);
 
 	begin    
 		--File opening
 		file_open(in_file, "image_input.in",  read_mode);
-		file_open(out_file, "image_test.out", write_mode);  
 				
+		in_write <= '1';
+		in_padding <= '0';
 
 		--Reading the in file
 		while not endfile(in_file) loop
 			readline(in_file, in_line);	
-			read(in_line, pixel_vect_var);
-			in_write <= '1';
+			read(in_line, in_pixel_vect);
 
 			--Converting std_vector to pixel
 			for i in 0 to 7 loop
-				pixel_var(i) := pixel_vect_var(i);
+				in_pixel(i) := in_pixel_vect(i);
 			end loop;
-			in_data <= pixel_var;
-				
+			in_data <= in_pixel;
+
 			wait until rising_edge(in_clk);
-
-			if out_ready = '1' then
-				for i in 0 to 14 loop
-					pixel_var := out_data(i);
-					for j in 0 to 7 loop
-						pixel_vect_var(j) := pixel_var(j);
-					end loop;
-					write(out_line, pixel_vect_var);
-				end loop;
-				writeline(out_file, out_line);
-			end if;
 		end loop;
-
-		wait until rising_edge(in_clk);
-
-			if out_ready = '1' then
-				for i in 0 to 14 loop
-					pixel_var := out_data(i);
-					for j in 0 to 7 loop
-						pixel_vect_var(j) := pixel_var(j);
-					end loop;
-					write(out_line, pixel_vect_var);
-				end loop;
-				writeline(out_file, out_line);
-			end if;
-
+		
+		-- in_data <= (others => '0');
+		-- wait until rising_edge(in_clk);
+		
 		in_write <= '0';
 
 		file_close(in_file);
 		file_close(out_file);
 
 		wait;
-	end process send_kernel;	
+	end process send_kernel;
+
+	--Sends inputs and reads outputs of UUT
+	receive_output : process                                         
+
+		variable out_line			: line;
+		variable out_column_vect	: std_logic_vector(119 downto 0);
+
+	begin    
+
+		--File opening
+		file_open(out_file, "image_output.out", write_mode);  
+
+		--Waiting until UUT is ready
+		wait until rising_edge(out_ready);
+		wait until rising_edge(in_clk);
+
+		-- Writing output in file
+		while out_ready = '1' loop
+			for i in 0 to 14 loop
+				for j in 0 to 7 loop
+					out_column_vect(i * 8 + j) := out_data(i)(j);
+				end loop;
+			end loop;
+			write(out_line, out_column_vect);
+			writeline(out_file, out_line);
+			
+			wait until rising_edge(in_clk);
+		end loop;
+
+		
+
+		wait;
+	end process receive_output;
+	
 end image_testbench;

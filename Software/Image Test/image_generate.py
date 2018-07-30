@@ -30,7 +30,7 @@ with open('image_output.in', 'w') as file:
 
     output = []
 
-    for r in range(0, len(image) - 15):
+    for r in range(0, len(image) - 14):
         for c in range(len(image[0])):
             output.append(image[r:r+15].T[c])
 
@@ -56,12 +56,12 @@ with open('image_output.in', 'w') as file:
 #     fig.canvas.draw()
 #     fig.canvas.flush_events()
 
-plt.subplot(2,2,1)
-plt.imshow(output[250:265], vmin=0, vmax=255)
-plt.subplot(2,2,2)
-plt.imshow(output[255:270], vmin=0, vmax=255)
-# plt.imshow(image[0:15].T[250:265], vmin=0, vmax=255)
-plt.subplot(2,2,3)
-plt.imshow(image, vmin=0, vmax=255)
+# plt.subplot(2,2,1)
+# plt.imshow(output[250:265], vmin=0, vmax=255)
+# plt.subplot(2,2,2)
+# plt.imshow(output[255:270], vmin=0, vmax=255)
+# # plt.imshow(image[0:15].T[250:265], vmin=0, vmax=255)
+# plt.subplot(2,2,3)
+# plt.imshow(image, vmin=0, vmax=255)
 
-plt.show()
+# plt.show()

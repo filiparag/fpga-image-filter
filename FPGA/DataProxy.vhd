@@ -21,7 +21,7 @@ end DataProxy;
 
 architecture data_proxy of DataProxy is
 
-	signal pixel_count 	: unsigned (7 downto 0) := "00000000";
+	signal pixel_count 	: unsigned (7 downto 0) := (others => '0');
 
 begin
 

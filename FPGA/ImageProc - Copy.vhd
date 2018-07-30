@@ -7,12 +7,12 @@ use work.CustomTypes.all;
 entity ImageProc is
 	port
 	(
-		in_clk				: in std_logic;
-		in_ready			: in std_logic;
-		in_data				: in pixel;
+		in_clk			: in std_logic;
+		in_write		: in std_logic;
+		in_data			: pixel;
 
-		out_ready 			: out std_logic;
-		out_data 			: out pixel
+		out_ready		: out std_logic;
+		out_data		: out window_matrix
 	);
 
 end ImageProc;
@@ -21,21 +21,6 @@ architecture image_proc of ImageProc is
 
 	signal image_ready		: std_logic;
 	signal image_data		: kernel_row;
-	signal in_image_write	: std_logic;
-	signal in_kernel_write	: std_logic;
-	signal in_image_data	: pixel;
-	signal in_kernel_data	: pixel;
-
-	signal out_image_ready	: std_logic;
-	signal out_image_data	: kernel_row;
-
-	signal out_kernel_ready	: std_logic;
-	signal out_kernel_data	: window_matrix;
-
-	signal window_ready		: std_logic;
-	signal window_data		: window_matrix;
-
-
 
 	component DataProxy
 	port (
@@ -101,22 +86,14 @@ begin
 
 
 	data_proxy_comp : DataProxy
-	port map (in_clk, in_ready, in_data, in_image_write, in_kernel_write, in_image_data, in_kernel_data);
+	port map (in_clk, in_ready, in_data, image_ready, image_data);
 
-	kernel_comp : Kernel
-	port map (in_clk, in_kernel_write, in_kernel_data, out_kernel_ready, out_kernel_data);
 
 	image_comp : Image
-	port map (in_clk, in_image_write, in_image_data, out_image_ready, out_image_data);
+	port map (in_clk, in_write, in_data, image_ready, image_data);
 
 	window_comp : Window
-	port map (in_clk, out_image_ready, out_image_data, window_ready, window_data);
-
-	linear_filter_comp : LinearFilter
-	port map (in_clk, out_kernel_ready, window_ready, out_kernel_data, window_data, out_ready, out_data);
-
-	-- linear_filter_comp : LinearFilter
-	-- port map (in_clk, image_ready, image_data, out_ready, out_data);
+	port map (in_clk, image_ready, image_data, out_ready, out_data);
 
 	-- process (
 	-- in_clk
