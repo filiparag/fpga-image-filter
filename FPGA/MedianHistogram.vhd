@@ -6,14 +6,14 @@ use work.CustomTypes.all;
 entity MedianHistogram is 
 	port
 	(
-		in_clk			: in std_logic;
-		in_write		: in std_logic;
-		in_data			: in window_matrix;
+		in_clk			: in 	std_logic;
+		in_write		: in 	std_logic;
+		in_data			: in 	window_matrix;
 
-		out_ready		: out std_logic;
-		out_median		: out medminmax;
-		out_maximum		: out medminmax;
-		out_minimum		: out medminmax
+		out_ready		: out 	std_logic;
+		out_median		: out 	medminmax;
+		out_maximum		: out 	medminmax;
+		out_minimum		: out 	medminmax
 	);
 
 end MedianHistogram;
@@ -22,7 +22,6 @@ architecture median_histogram of MedianHistogram is
 
 	signal decoder_out 	: histogram_dec_out;
 	signal adder_in 	: histogram_add_in;
-	
 	signal c_histogram 	: histogram;
 
 begin
@@ -51,20 +50,37 @@ begin
 		);
 	end generate;
 
-	process (
-		in_clk
+	MIN : entity work.PriorityEncoder(priority_encoder)
+	generic map
+	( 
+		gen_lookup => "min"
 	)
+	port map (
+		in_clk => in_clk,
+		in_histogram => c_histogram,
+		out_value => out_minimum(0)
+	);
 
-	begin
+	MED : entity work.PriorityEncoder(priority_encoder)
+	generic map
+	( 
+		gen_lookup => "med"
+	)
+	port map (
+		in_clk => in_clk,
+		in_histogram => c_histogram,
+		out_value => out_median(0)
+	);
 
-		if rising_edge(in_clk) then
-
-			if in_write = '1' then
-				
-			end if;
-
-		end if;
-
-	end process;
+	MAX : entity work.PriorityEncoder(priority_encoder)
+	generic map
+	( 
+		gen_lookup => "max"
+	)
+	port map (
+		in_clk => in_clk,
+		in_histogram => c_histogram,
+		out_value => out_maximum(0)
+	);
 
 end median_histogram;

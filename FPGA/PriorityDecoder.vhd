@@ -6,9 +6,9 @@ use work.CustomTypes.all;
 entity PriorityDecoder is
 	port
 	(
-		in_clk			: in std_logic;
-		in_value		: in pixel;
-		out_values		: out histogram_bin
+		in_clk			: in 	std_logic;
+		in_value		: in 	pixel;
+		out_values		: out 	histogram_bin
 	);
 end PriorityDecoder;
 
