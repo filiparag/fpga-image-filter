@@ -20,8 +20,10 @@ begin
 
 		if rising_edge(in_clk) then
 
-			for value in 0 to 254 loop
-				if (unsigned(in_value) >= to_unsigned(value, 8)) then
+			out_values <= (others => '0');
+
+			for value in 0 to 255 loop
+				if unsigned(in_value) <= to_unsigned(value, 8) then
 					out_values(value) <= '1';
 				else
 					out_values(value) <= '0';
