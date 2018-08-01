@@ -18,9 +18,11 @@ begin
 
 	process( in_clk )
 
-		variable sum : unsigned (7 downto 0) := (others => '0');
+		variable sum : unsigned (7 downto 0);
 
 	begin
+
+		sum := (others => '0');
 
 		if rising_edge(in_clk) then
 
@@ -29,6 +31,8 @@ begin
 					sum := sum + 1;
 				end if;
 			end loop;
+
+			out_sum <= pixel(sum);
 
 		end if;
 		
