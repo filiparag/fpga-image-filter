@@ -6,7 +6,7 @@ use work.CustomTypes.all;
 entity PriorityEncoder is
 	generic
 	(
-		gen_lookup		: String(1 to 3)
+		gen_lookup		: String(1 to 3) := "med"
 	);
 	port
 	(
@@ -19,30 +19,34 @@ end PriorityEncoder;
 architecture priority_encoder of PriorityEncoder is
 begin
 
-	process( in_clk )
+	process(in_clk)
 
-		variable treshold 	: unsigned (7 downto 0);
-		variable reached	: std_logic := '0';
+		variable treshold 	: integer;
 
 	begin
 
 		if gen_lookup = "min" then
-			treshold := to_unsigned(1, 8);
+			treshold := 1;
 		elsif gen_lookup = "max" then
-			treshold := to_unsigned((kernel_dimension * kernel_dimension) - 1, 8);
+			treshold := integer(kernel_dimension * kernel_dimension);
 		elsif gen_lookup = "med" then
-			treshold := to_unsigned((kernel_dimension * kernel_dimension + 1) / 2, 8);
+			treshold := integer(kernel_dimension * kernel_dimension + 1) / 2;
 		end if;
 
 		if rising_edge(in_clk) then
 
+			-- out_value <= "10101010";
+
 			for p in 0 to 255 loop
-				if reached = '0' then
-					if unsigned(in_histogram(p)) >= treshold then
-						reached := '1';
+				if unsigned(in_histogram(p)) >= to_unsigned(treshold, 8) then
+					if p = 0 then
+						out_value <= pixel(to_unsigned(p, 8));
+					elsif unsigned(in_histogram(p-1)) < to_unsigned(treshold, 8) then
 						out_value <= pixel(to_unsigned(p, 8));
 					end if;
+					-- out_value <= in_histogram(p);
 				end if;
+
 			end loop;
 
 		end if;
