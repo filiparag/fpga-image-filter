@@ -8,7 +8,7 @@ entity PriorityDecoder is
 	(
 		in_clk			: in std_logic;
 		in_value		: in pixel;
-		out_values		: out histogram_binary
+		out_values		: out histogram_bin
 	);
 end PriorityDecoder;
 
