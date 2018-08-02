@@ -6,7 +6,8 @@ use work.CustomTypes.all;
 entity PriorityEncoder is
 	generic
 	(
-		gen_lookup		: String(1 to 3) := "med"
+		gen_lookup		: String(1 to 3) := "med";
+		gen_dimension	: unsigned (7 downto 0) := to_unsigned(15, 8)
 	);
 	port
 	(
@@ -29,17 +30,15 @@ begin
 		if gen_lookup = "min" then
 			treshold := 1;
 		elsif gen_lookup = "max" then
-			treshold := integer(kernel_dimension * kernel_dimension);
+			treshold := to_integer(gen_dimension * gen_dimension);
 		elsif gen_lookup = "med" then
-			treshold := integer(kernel_dimension * kernel_dimension + 1) / 2;
+			treshold := to_integer(gen_dimension * gen_dimension + 1) / 2;
 		end if;
 
 		if rising_edge(in_clk) then
 			if in_write = '1' then
 
 				for p in 0 to 255 loop
-
-					-- out_value <= pixel(to_unsigned(treshold, 8));
 
 					if unsigned(in_histogram(p)) >= to_unsigned(treshold, 8) then
 						if p = 0 then

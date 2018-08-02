@@ -76,7 +76,8 @@ begin
 	MIN : entity work.PriorityEncoder(priority_encoder)
 	generic map
 	( 
-		gen_lookup => "min"
+		gen_lookup 		=> "min",
+		gen_dimension	=> in_dimension
 	)
 	port map (
 		in_clk 			=> in_clk,
@@ -88,7 +89,8 @@ begin
 	MED : entity work.PriorityEncoder(priority_encoder)
 	generic map
 	( 
-		gen_lookup => "med"
+		gen_lookup 		=> "med",
+		gen_dimension	=> in_dimension
 	)
 	port map (
 		in_clk 		 	=> in_clk,
@@ -100,7 +102,8 @@ begin
 	MAX : entity work.PriorityEncoder(priority_encoder)
 	generic map
 	( 
-		gen_lookup => "max"
+		gen_lookup 		=> "max",
+		gen_dimension	=> in_dimension
 	)
 	port map (
 		in_clk 			=> in_clk,
