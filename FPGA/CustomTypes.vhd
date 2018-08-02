@@ -17,7 +17,7 @@ package CustomTypes is
     type window_matrix_bin  is array ((kernel_dimension * kernel_dimension - 1) downto 0) 	    of STD_LOGIC;
     type kernel_row         is array ((kernel_dimension - 1) downto 0) 	                        of pixel;
 
-    type medminmax          is array (6 downto 0)                                               of pixel;
+    type min_med_max        is array (6 downto 0)                                               of pixel;
     type histogram          is array (255 downto 0) 	                                        of pixel;
     type histogram_bin      is array (255 downto 0) 	                                        of STD_LOGIC;
     type histogram_in       is array (224 downto 0)                                             of pixel;
