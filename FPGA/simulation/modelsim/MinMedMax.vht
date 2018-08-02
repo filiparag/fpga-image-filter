@@ -10,76 +10,55 @@ use work.customtypes.all;
 
 
 -- Empty testbench entity
-entity MedianHistogramtestbench is																	
-end MedianHistogramtestbench;
+entity MinMedMaxTestbench is																	
+end MinMedMaxTestbench;
 
 
-architecture median_histogram_testbench of MedianHistogramtestbench is
+architecture minmedmax_testbench of MinMedMaxTestbench is
 
 	-- constants   
 	constant clk_period 	: time := 10 ns;
 
 	-- signals                                                   
-	signal in_clk			: std_logic;
-	signal in_write			: std_logic := '0';
-	signal in_data			: window_matrix;
+	signal s_clk			: std_logic;
+	signal s_write			: std_logic := '0';
+	signal s_data			: window_matrix;
 	
-	signal out_median		: pixel;
-	signal out_maximum		: pixel;
-	signal out_minimum		: pixel;
-	signal out_ready		: std_logic;
+	signal s_median			: min_med_max;
+	signal s_maximum		: min_med_max;
+	signal s_minimum		: min_med_max;
+	signal s_ready			: std_logic_vector(6 downto 0) := (others => '0');
 
 
 	--files
 	file in_file 			: text;
-	file out_file 			: text;
 
-	--UUT component
-	component MedianHistogram
-		generic
-		(
-			in_dimension	: unsigned (7 downto 0)
-		);
-		port
-		(
-			in_clk			: in 	std_logic;
-			in_write		: in 	std_logic;
-			in_data			: in 	window_matrix;
-
-			out_median		: out 	pixel;
-			out_maximum		: out 	pixel;
-			out_minimum		: out 	pixel;
-			out_ready		: out 	std_logic
-		);
-	end component;
-
-	--Signal mapping
 begin
 
-		mh1 : MedianHistogram
+		mmm : entity work.MinMedMax(arch_median_histogram)
 		generic map
 		(
-			in_dimension	=> to_unsigned(5, 8)
+			in_dimension	=> to_unsigned(15, 8)
 		)
 		port map (
-			in_clk			=> in_clk,
-			in_write		=> in_write,
-			in_data			=> in_data,
-			out_median		=> out_median,
-			out_maximum		=> out_maximum,
-			out_minimum		=> out_minimum,
-			out_ready		=> out_ready
+			in_clk			=> s_clk,
+			in_write		=> s_write,
+			in_data			=> s_data,
+			out_median		=> s_median,
+			out_maximum		=> s_maximum,
+			out_minimum		=> s_minimum,
+			out_ready		=> s_ready
 		);
 
 	-- Generates clock for UUT
 	clk_process : process                                                                               
 	begin      
 		-- in_write <= '1';
-		in_clk <= '0';
+		s_clk <= '0';
 		wait for clk_period/2; 
 
 		-- in_write <= '0';
-		in_clk <= '1';
+		s_clk <= '1';
 		wait for clk_period/2; 
 													
 	end process clk_process;   
@@ -100,15 +79,15 @@ begin
 
 			for p in 0 to 224 loop
 				for b in 0 to 7 loop
-					in_data(224 - p)(b) <= in_window_vec(8 * p + b);
+					s_data(224 - p)(b) <= in_window_vec(8 * p + b);
 				end loop;
 			end loop;
 
 		end loop;
 		
-		wait until rising_edge(in_clk);
+		wait until rising_edge(s_clk);
 
-		in_write <= '1';
+		s_write <= '1';
 
 		file_close(in_file);
 
@@ -117,4 +96,4 @@ begin
 	end process;
 
 	
-end median_histogram_testbench;
+end minmedmax_testbench;

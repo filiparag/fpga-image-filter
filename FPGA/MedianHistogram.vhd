@@ -37,10 +37,12 @@ begin
 		
 	PXL_ENB_1 : for a in 0 to 14 generate
 		PXL_ENB_1 : for b in 0 to 14 generate
-			PXL_ENB_3 : if b < (15 - in_dimension) / 2 or b >= (15 - in_dimension) / 2 + in_dimension generate
+			PXL_ENB_3 : if (b < (15 - in_dimension) / 2 or b >= (15 - in_dimension) / 2 + in_dimension) or
+						   (a < (15 - in_dimension) / 2 or a >= (15 - in_dimension) / 2 + in_dimension) generate
 				pixel_enable(15 * a + b) <= '0';
 			end generate;
-			PXL_ENB_4 : if b >= (15 - in_dimension) / 2 and b < (15 - in_dimension) / 2 + in_dimension generate
+			PXL_ENB_4 : if (b >= (15 - in_dimension) / 2 and b < (15 - in_dimension) / 2 + in_dimension) and
+						   (a >= (15 - in_dimension) / 2 and a < (15 - in_dimension) / 2 + in_dimension) generate
 				pixel_enable(15 * a + b) <= '1';
 			end generate;
 		end generate;

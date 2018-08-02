@@ -13,12 +13,29 @@ entity MinMedMax is
 		out_median		: out 	min_med_max;
 		out_maximum		: out 	min_med_max;
 		out_minimum		: out 	min_med_max;
-		out_ready		: out 	std_logic
+		out_ready		: out 	std_logic_vector(6 downto 0)
 	);
 
 end MinMedMax;
 
-architecture median_histogram of MinMedMax is
+architecture arch_median_histogram of MinMedMax is
+
+	component MEDIAN_HISTOGRAM
+		generic
+		( 
+			in_dimension : unsigned (7 downto 0)
+		);
+		port (
+			in_clk		 : in std_logic;
+			in_write	 : in std_logic;
+			in_data		 : in window_matrix;
+			out_median	 : in pixel;
+			out_maximum	 : in pixel;
+			out_minimum	 : in pixel;
+			out_ready	 : in std_logic
+		);
+	end component;
+
 begin
 		
 	MH_GEN : for dimension in 1 to 7 generate
@@ -31,11 +48,11 @@ begin
 			in_clk		 => in_clk,
 			in_write	 => in_write,
 			in_data		 => in_data,
-			out_median	 => out_median(dimension),
-			out_maximum	 => out_maximum(dimension),
-			out_minimum	 => out_minimum(dimension),
-			out_ready	 => out_ready
+			out_median	 => out_median(dimension - 1),
+			out_maximum	 => out_maximum(dimension - 1),
+			out_minimum	 => out_minimum(dimension - 1),
+			out_ready	 => out_ready(dimension - 1)
 		);
 	end generate;
-	
-end median_histogram;
+
+end arch_median_histogram;
