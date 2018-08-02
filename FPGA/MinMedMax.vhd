@@ -13,7 +13,7 @@ entity MinMedMax is
 		out_median		: out 	min_med_max;
 		out_maximum		: out 	min_med_max;
 		out_minimum		: out 	min_med_max;
-		out_ready		: out 	std_logic_vector(6 downto 0)
+		out_ready		: out 	std_logic
 	);
 
 end MinMedMax;
@@ -36,6 +36,8 @@ architecture arch_median_histogram of MinMedMax is
 		);
 	end component;
 
+	signal s_ready		 : std_logic_vector(6 downto 0);
+
 begin
 		
 	MH_GEN : for dimension in 1 to 7 generate
@@ -51,8 +53,21 @@ begin
 			out_median	 => out_median(dimension - 1),
 			out_maximum	 => out_maximum(dimension - 1),
 			out_minimum	 => out_minimum(dimension - 1),
-			out_ready	 => out_ready(dimension - 1)
+			out_ready	 => s_ready(dimension - 1)
 		);
 	end generate;
+
+	process(in_clk)
+	begin
+
+		if rising_edge(in_clk) then
+			if s_ready = "1111111" then
+				out_ready <= '1';
+			else
+				out_ready <= '0';
+			end if;
+		end if;
+
+	end process;
 
 end arch_median_histogram;

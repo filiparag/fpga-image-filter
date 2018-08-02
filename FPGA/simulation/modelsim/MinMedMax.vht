@@ -27,7 +27,7 @@ architecture minmedmax_testbench of MinMedMaxTestbench is
 	signal s_median			: min_med_max;
 	signal s_maximum		: min_med_max;
 	signal s_minimum		: min_med_max;
-	signal s_ready			: std_logic_vector(6 downto 0) := (others => '0');
+	signal s_ready			: std_logic;
 
 
 	--files
