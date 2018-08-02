@@ -21,6 +21,7 @@ architecture histogram_adder_testbench of HistogramAdderTestbench is
 
 	-- signals                                                   
 	signal in_clk			: std_logic;
+	signal in_write			: std_logic;
 	signal in_values		: histogram_in_bin;
 	signal in_enabled		: histogram_in_bin;
 	signal out_sum			: pixel;
@@ -34,6 +35,7 @@ architecture histogram_adder_testbench of HistogramAdderTestbench is
 		port
 		(
 			in_clk			: in std_logic;
+			in_write		: in std_logic;
 			in_values		: in histogram_in_bin;
 			in_enabled		: in histogram_in_bin;
 			out_sum			: out pixel
@@ -46,6 +48,7 @@ architecture histogram_adder_testbench of HistogramAdderTestbench is
 		d1 : HistogramAdder
 		port map (
 			in_clk 			=> in_clk,
+			in_write		=> in_write,
 			in_values 		=> in_values,
 			in_enabled 		=> in_enabled,
 			out_sum 		=> out_sum
@@ -55,11 +58,11 @@ architecture histogram_adder_testbench of HistogramAdderTestbench is
 	clk_process : process                                                                               
 	begin      
 		-- in_write <= '1';
-		in_clk <= '1';
+		in_clk <= '0';
 		wait for clk_period/2; 
 
 		-- in_write <= '0';
-		in_clk <= '0';
+		in_clk <= '1';
 		wait for clk_period/2; 
 													
 	end process clk_process;   
@@ -91,6 +94,8 @@ architecture histogram_adder_testbench of HistogramAdderTestbench is
 		end loop;
 		
 		wait until rising_edge(in_clk);
+
+		in_write <= '1';
 
 		file_close(in_file_v);
 		file_close(in_file_e);

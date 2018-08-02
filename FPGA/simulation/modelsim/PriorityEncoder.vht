@@ -21,6 +21,7 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 
 	-- signals                                                   
 	signal in_clk			: std_logic;
+	signal in_write			: std_logic;
 	signal in_histogram		: histogram;
 	signal out_value_min	: pixel;
 	signal out_value_med	: pixel;
@@ -39,6 +40,7 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 		port
 		(
 			in_clk			: in 	std_logic;
+			in_write		: in 	std_logic;
 			in_histogram	: in 	histogram;
 			out_value		: out 	pixel
 		);
@@ -53,6 +55,7 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 		)
 		port map (
 			in_clk => in_clk,
+			in_write => in_write,
 			in_histogram => in_histogram,
 			out_value => out_value_min
 		);
@@ -63,6 +66,7 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 		)
 		port map (
 			in_clk => in_clk,
+			in_write => in_write,
 			in_histogram => in_histogram,
 			out_value => out_value_med
 		);
@@ -73,6 +77,7 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 		)
 		port map (
 			in_clk => in_clk,
+			in_write => in_write,
 			in_histogram => in_histogram,
 			out_value => out_value_max
 		);
@@ -100,6 +105,8 @@ architecture priority_encoder_testbench of PriorityEncodertestbench is
 	begin
 
 		file_open(in_file, "priority_encoder.in.test",  read_mode);
+
+		in_write <= '1';
 
 		while not endfile(in_file) loop
 

@@ -11,6 +11,7 @@ entity PriorityEncoder is
 	port
 	(
 		in_clk			: in 	std_logic;
+		in_write		: in 	std_logic;
 		in_histogram	: in 	histogram;
 		out_value		: out 	pixel
 	);
@@ -19,7 +20,7 @@ end PriorityEncoder;
 architecture priority_encoder of PriorityEncoder is
 begin
 
-	process(in_clk)
+	process(in_clk, in_write)
 
 		variable treshold 	: integer;
 
@@ -34,21 +35,23 @@ begin
 		end if;
 
 		if rising_edge(in_clk) then
+			if in_write = '1' then
 
-			-- out_value <= "10101010";
+				for p in 0 to 255 loop
 
-			for p in 0 to 255 loop
-				if unsigned(in_histogram(p)) >= to_unsigned(treshold, 8) then
-					if p = 0 then
-						out_value <= pixel(to_unsigned(p, 8));
-					elsif unsigned(in_histogram(p-1)) < to_unsigned(treshold, 8) then
-						out_value <= pixel(to_unsigned(p, 8));
+					-- out_value <= pixel(to_unsigned(treshold, 8));
+
+					if unsigned(in_histogram(p)) >= to_unsigned(treshold, 8) then
+						if p = 0 then
+							out_value <= pixel(to_unsigned(p, 8));
+						elsif unsigned(in_histogram(p-1)) < to_unsigned(treshold, 8) then
+							out_value <= pixel(to_unsigned(p, 8));
+						end if;
 					end if;
-					-- out_value <= in_histogram(p);
-				end if;
 
-			end loop;
+				end loop;
 
+			end if;
 		end if;
 		
 	end process;
