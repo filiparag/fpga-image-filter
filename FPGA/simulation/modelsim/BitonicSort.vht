@@ -88,26 +88,38 @@ begin
                 
         in_ready <= '1';
 		--Reading the in file
-		while not endfile(in_file) loop
-			readline(in_file, in_line);	
-			read(in_line, pixel_vect_var);
-            
-            in_data_var (counter * 8 + 7 downto counter * 8) := pixel_vect_var(7 downto 0);
-			counter := counter + 1;
+		for i in 0 to 99 loop
+			counter := 0;
+			for j in 0 to 255 loop
+				readline(in_file, in_line);	
+				read(in_line, pixel_vect_var);
+				in_data_var (counter * 8 + 7 downto counter * 8) := pixel_vect_var(7 downto 0);
+				counter := counter + 1;
+			end loop;
+			in_data <= in_data_var;
+			wait until rising_edge(in_clk);
+			if out_ready = '1' then
+				for i in 0 to 255 loop
+					pixel_vect_var := out_data (i * 8 + 7 downto i * 8);
+					write(out_line, pixel_vect_var, right, 8);
+					writeline(out_file, out_line);
+				end loop;
+			end if;
 		end loop;
 		
-		in_data <= in_data_var;
-        
-        wait until rising_edge(out_ready);
-        wait until rising_edge(in_clk);
-        if (out_ready = '1') then
-            for i in 0 to 255 loop
-                pixel_vect_var := out_data (i * 8 + 7 downto i * 8);
-                write(out_line, pixel_vect_var, right, 8);
-                writeline(out_file, out_line);
-            end loop;
-        end if;
+		in_ready <= '0';
 
+		for i in 0 to 100 loop
+			if out_ready = '1' then
+				wait until rising_edge(in_clk);
+				for j in 0 to 255 loop
+					pixel_vect_var := out_data (j * 8 + 7 downto j * 8);
+					write(out_line, pixel_vect_var, right, 8);
+					writeline(out_file, out_line);
+				end loop;
+			end if;
+		end loop;
+        
 		file_close(in_file);
 		file_close(out_file);
 

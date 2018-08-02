@@ -68,8 +68,6 @@ architecture bitonic_sort of BitonicSort is
 
 begin
 	BMsimple : if N = 1 generate
-		
-
 		BM: BitonicMerge
 		generic map (N)
 		port map 

@@ -99,27 +99,30 @@ begin
         variable comp1 	    : unsigned (7 downto 0) := (others => '0');
         variable comp2 	    : unsigned (7 downto 0) := (others => '0');
     begin
-        if rising_edge(in_clk) and in_ready = '1' then
-
-            if in_ready = '1' and comp_finished = '0' then
-                comp_finished <= '1';
-            end if;
-
-            for i in 0 to 2 ** (N - 1) - 1 loop
-                comp1 := unsigned(in_data ((i * 8 + 7) downto i * 8));
-                comp2 := unsigned(in_data ((i * 8 + (2 ** (N - 1)) * 8 + 7) downto (i * 8 + (2 ** (N - 1)) * 8)));
-                if comp1 > comp2 then
-                    for j in 7 downto 0 loop
-                        temp (i * 8 + j) <= comp2 (j);
-                        temp (i * 8 + (2 ** (N - 1)) * 8 + j) <= comp1 (j);
-                    end loop;
-                else
-                    for j in 7 downto 0 loop
-                        temp (i * 8 + j) <= comp1 (j);
-                        temp (i * 8 + (2 ** (N - 1)) * 8 + j) <= comp2 (j);
-                    end loop;
+        if rising_edge(in_clk) then
+            if in_ready = '1' then
+                if comp_finished = '0' then
+                    comp_finished <= '1';
                 end if;
-            end loop;
+
+                for i in 0 to 2 ** (N - 1) - 1 loop
+                    comp1 := unsigned(in_data ((i * 8 + 7) downto i * 8));
+                    comp2 := unsigned(in_data ((i * 8 + (2 ** (N - 1)) * 8 + 7) downto (i * 8 + (2 ** (N - 1)) * 8)));
+                    if comp1 > comp2 then
+                        for j in 7 downto 0 loop
+                            temp (i * 8 + j) <= comp2 (j);
+                            temp (i * 8 + (2 ** (N - 1)) * 8 + j) <= comp1 (j);
+                        end loop;
+                    else
+                        for j in 7 downto 0 loop
+                            temp (i * 8 + j) <= comp1 (j);
+                            temp (i * 8 + (2 ** (N - 1)) * 8 + j) <= comp2 (j);
+                        end loop;
+                    end if;
+                end loop;
+            else
+                comp_finished <= '0';
+            end if;
 		end if;
     end process;
 
