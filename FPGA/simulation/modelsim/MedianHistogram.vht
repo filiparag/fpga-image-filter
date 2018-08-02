@@ -59,7 +59,7 @@ begin
 		mh1 : MedianHistogram
 		generic map
 		(
-			in_dimension	=> to_unsigned(15, 8)
+			in_dimension	=> to_unsigned(5, 8)
 		)
 		port map (
 			in_clk			=> in_clk,
@@ -91,7 +91,7 @@ begin
 
 	begin
 
-		file_open(in_file, "median_histogram.in.test",  read_mode);
+		file_open(in_file, "minmedmax.in.test",  read_mode);
 
 		while not endfile(in_file) loop
 
