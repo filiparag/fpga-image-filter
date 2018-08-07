@@ -26,4 +26,6 @@ package CustomTypes is
     type histogram_dec_out  is array (224 downto 0) 	                                        of histogram_bin;
     type histogram_add_in   is array (255 downto 0) 	                                        of histogram_in_bin;
 
+    type ad_med_buffer      is array (3 downto 0) 	                                            of pixel;
+
 end package CustomTypes;

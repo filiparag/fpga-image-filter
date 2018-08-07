@@ -73,7 +73,7 @@ begin
 end arch_median_histogram;
 
 architecture arch_bitonic_sort of MinMedMax is
-	signal in_data_vect 	: std_logic_vector ((kernel_dimension * kernel_dimension - 1) * 8 - 1 downto 0);
+
 	signal in_data_vect 	: std_logic_vector ((kernel_dimension * kernel_dimension - 1) * 8 - 1 downto 0);
 
 	signal in_15 			: std_logic_vector (255 * 8 - 1 downto 0);
@@ -259,31 +259,31 @@ begin
 	delay_in_3(23 downto 16) <= out_3 (7 * 8 + 7 downto 7 * 8);
 
 	f_out_1 : for i in 0 to 7 generate
-		out_maximmum (0)(i) <= out_15 (255 * 8 + i);
+		out_maximum (0)(i) <= out_15 (255 * 8 + i);
 		out_median (0)(i) <= out_15 (143 * 8 + i);
 		out_minimum (0)(i) <= out_15 (31 * 8 + i);
 
-		out_maximmum (1)(i) <= out_13 (255 * 8 + i);
+		out_maximum (1)(i) <= out_13 (255 * 8 + i);
 		out_median (1)(i) <= out_13 (171 * 8 + i);
 		out_minimum (1)(i) <= out_13 (87 * 8 + i);
 
-		out_maximmum (2)(i) <= delay_out_11 (i);
+		out_maximum (2)(i) <= delay_out_11 (i);
 		out_median (2)(i) <= delay_out_11 (8 + i);
 		out_minimum (2)(i) <= delay_out_11 (16 + i);
 
-		out_maximmum (3)(i) <= delay_out_9 (i);
+		out_maximum (3)(i) <= delay_out_9 (i);
 		out_median (3)(i) <= delay_out_9 (8 + i);
 		out_minimum (3)(i) <= delay_out_9 (16 + i);
 
-		out_maximmum (4)(i) <= delay_out_7 (i);
+		out_maximum (4)(i) <= delay_out_7 (i);
 		out_median (4)(i) <= delay_out_7 (8 + i);
 		out_minimum (4)(i) <= delay_out_7 (16 + i);
 
-		out_maximmum (5)(i) <= delay_out_5 (i);
+		out_maximum (5)(i) <= delay_out_5 (i);
 		out_median (5)(i) <= delay_out_5 (8 + i);
 		out_minimum (5)(i) <= delay_out_5 (16 + i);
 
-		out_maximmum (6)(i) <= delay_out_3 (i);
+		out_maximum (6)(i) <= delay_out_3 (i);
 		out_median (6)(i) <= delay_out_3 (8 + i);
 		out_minimum (6)(i) <= delay_out_3 (16 + i);
 
