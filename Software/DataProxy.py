@@ -38,12 +38,9 @@ def test_data_proxy():
          open('data_proxy_image.out', 'w') as test_image_out:
 
         for line in test_in.readlines():
-            in_data = convert.binstr_to_bin(line[:-1])
+            in_data = convert.binstr_to_bin(line.replace('\n', ''))
             out_kernel_write, out_image_write, out_kernel, out_image = arch_data_proxy(1, in_data)
             if out_kernel_write:
                 test_kernel_out.write(convert.bin_to_binstr(out_kernel) + '\n')
             if out_image_write:
                 test_image_out.write(convert.bin_to_binstr(out_image) + '\n')
-                print(out_image)
-
-test_data_proxy()
