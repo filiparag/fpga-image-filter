@@ -12,7 +12,7 @@ def arch_histogram_adder(in_write, in_values, in_enabled):
             if in_values[p] == 1 and in_enabled[p] == 1:
                 out_sum = out_sum + 1
 
-    return out_sum
+    return convert.num_to_bin(out_sum)
 
 
 def test_histogram_adder():
@@ -24,6 +24,6 @@ def test_histogram_adder():
         in_values = convert.binstr_to_bin(test_values_in.readline().replace('\n', ''))
         in_enabled = convert.binstr_to_bin(test_enabled_in.readline().replace('\n', ''))
         out_sum = arch_histogram_adder(1, in_values, in_enabled)
-        test_out.write(convert.num_to_binstr(out_sum) + '\n')
+        test_out.write(convert.bin_to_binstr(out_sum) + '\n')
 
 test_histogram_adder()
