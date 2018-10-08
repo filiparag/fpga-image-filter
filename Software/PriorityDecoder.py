@@ -9,7 +9,7 @@ def arch_priority_decoder(in_write, in_value):
 
     if in_write:
         for value in range(256):
-            if convert.bin_to_num(in_value) < value:
+            if convert.bin_to_num(in_value) <= value:
                 out_values[value] = 1
             else:
                 out_values[value] = 0
