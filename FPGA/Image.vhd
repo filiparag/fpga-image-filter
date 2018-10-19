@@ -4,6 +4,8 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.CustomTypes.all;
 
+use work.CustomTypes.all;
+
 entity Image is 
 	port
 	(
@@ -21,7 +23,6 @@ architecture image of Image is
 
 	signal shift_register 	: image_slice;
 	signal pixel_count		: unsigned (19 downto 0) := (others => '0');
-	signal row_count 	: unsigned (7 downto 0) := (others => '0');
 
 begin
 
@@ -45,21 +46,8 @@ begin
 				pixel_count <= pixel_count + 1;
 
 				if pixel_count > image_slice_width * (image_slice_height - 1) - 1 then	
-					
-					if row_count = image_slice_width then
-						row_count <= "00000000";
-					else
-						row_count <= row_count + 1;
-					end if;
-		
-					if row_count > kernel_dimension - 2 then
-						out_ready <= '1';
-					else
-						out_ready <= '0';
-					end if;
-
-				end if;
-
+					out_ready <= '1';
+				end if; 
 			else 
 				out_ready <= '0';
 			end if;

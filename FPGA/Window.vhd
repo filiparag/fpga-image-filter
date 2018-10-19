@@ -20,6 +20,7 @@ end Window;
 architecture window of Window is
 
 	signal window_reg	: window_matrix;
+	signal row_count 	: unsigned (7 downto 0) := (others => '0');
 
 begin
 
@@ -46,6 +47,17 @@ begin
 					window_reg(i) <= in_data(i);
 				end loop;
 				
+				if row_count = image_slice_width then
+					row_count <= "00000000";
+				else
+					row_count <= row_count + 1;
+				end if;
+	
+				if row_count > kernel_dimension - 2 then
+					out_ready <= '1';
+				else
+					out_ready <= '0';
+				end if;
 			else
 				out_ready <= '0';
 			end if;
