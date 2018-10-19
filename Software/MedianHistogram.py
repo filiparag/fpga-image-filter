@@ -31,6 +31,8 @@ def arch_median_histogram(gen_dimension, in_write, in_data):
 	global write_add
 	global write_enc
 
+	gen_dimension = 2 * gen_dimension + 1
+
 	for a in range(15):
 		for b in range(15):
 			if (b < (15 - gen_dimension) / 2 or b >= (15 - gen_dimension) / 2 + gen_dimension) or \
@@ -49,9 +51,10 @@ def arch_median_histogram(gen_dimension, in_write, in_data):
 
 	for p in range(256):
 		c_histogram[8 * p : 8 * (p + 1)] = arch_histogram_adder(write_add, adder_in[225 * p : 225 * (p + 1)], pixel_enable)
-	out_minimum = arch_priority_encoder('min', 15, write_enc, c_histogram)
-	out_median = arch_priority_encoder('med', 15, write_enc, c_histogram)
-	out_maximum = arch_priority_encoder('max', 15, write_enc, c_histogram)
+	
+	out_minimum = arch_priority_encoder('min', gen_dimension, write_enc, c_histogram)
+	out_median = arch_priority_encoder('med', gen_dimension, write_enc, c_histogram)
+	out_maximum = arch_priority_encoder('max', gen_dimension, write_enc, c_histogram)
 
 	return out_minimum, out_median, out_maximum, True
 
@@ -61,7 +64,7 @@ def test_median_histogram():
 		 open('median_histogram.out', 'w') as test_out:
 		
 		in_data = convert.binstr_to_bin(test_in.readline().replace('\n', ''))
-		out_minimum, out_median, out_maximum, out_ready = arch_median_histogram(15, 1, in_data)
+		out_minimum, out_median, out_maximum, out_ready = arch_median_histogram(7, 1, in_data)
 		test_out.write(convert.bin_to_binstr(out_minimum) + '\n')
 		test_out.write(convert.bin_to_binstr(out_median) + '\n')
 		test_out.write(convert.bin_to_binstr(out_maximum))

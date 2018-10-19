@@ -3,7 +3,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-np.random.seed(seed=111)
+np.random.seed(seed=1101101)
 
 window = np.random.randint(256, size=(225), dtype=np.uint8)
 

@@ -3,7 +3,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-np.random.seed(seed=111)
+np.random.seed(seed=11111)
 
 values = np.random.randint(2, size=225, dtype=np.uint8)
 enabled = np.random.randint(2, size=225, dtype=np.uint8)
