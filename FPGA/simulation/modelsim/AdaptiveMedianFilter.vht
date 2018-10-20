@@ -24,7 +24,7 @@ architecture adaptive_median_filter_testbench of AdaptiveMedianFilterTestbench i
 	signal in_write			: std_logic := '0';
 	signal in_data			: window_matrix;
 	
-	signal out_data		: pixel;
+	signal out_data			: pixel;
 	signal out_ready		: std_logic;
 
 
@@ -76,18 +76,18 @@ begin
 
 	begin
 
-		-- file_open(in_file, "minmedmax.in.test",  read_mode);
+		file_open(in_file, "adaptivemedianfilter.in.test",  read_mode);
 
-		-- while not endfile(in_file) loop
+		while not endfile(in_file) loop
 
-		-- 	readline(in_file, in_line);	
-		-- 	read(in_line, in_window_vec);
+			readline(in_file, in_line);	
+			read(in_line, in_window_vec);
 
-		-- 	for p in 0 to 224 loop
-		-- 		for b in 0 to 7 loop
-		-- 			in_data(224 - p)(b) <= in_window_vec(8 * p + b);
-		-- 		end loop;
-		-- 	end loop;
+			for p in 0 to 224 loop
+				for b in 0 to 7 loop
+					in_data(224 - p)(b) <= in_window_vec(8 * p + b);
+				end loop;
+			end loop;
 
 		end loop;
 		
