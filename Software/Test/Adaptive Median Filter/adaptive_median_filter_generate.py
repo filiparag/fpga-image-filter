@@ -63,10 +63,17 @@ def test_input_output(image):
 
     # print(pix.shape)
 
-    # ppix = np.reshape(pix, (h - d_max * 2, w - d_max * 2))
+    # ppix = np.zeros(image.shape, dtype=np.uint8)
+    # ppix[7:h-7,7:w-7] = np.reshape(pix, (h - 14, w - 14))
+    # ppix[:w - 15, :h - 15] = np.reshape(pix, (w - 14, h - 14))
+
 
     # plt.figure(1)
+    # plt.subplot(3,1,2)
     # plt.imshow(ppix, cmap='gray', vmin=0, vmax=255)
+
+    # plt.subplot(3,1,3)
+    # plt.imshow(image - ppix)
 
     return win, pix, s
 
@@ -87,8 +94,8 @@ def binarize_pix(inp):
 
     return out
 
-i = scipy.misc.imread('test2.png', flatten=True, mode='L')[:64, :256]
-# f = filter(i)
+# o = scipy.misc.imread('Noise/original/1.png', flatten=True, mode='L')[100:164, :256]
+i = scipy.misc.imread('Noise/noisy/impulse/1.png', flatten=True, mode='L')[100:164, :256]
 
 win, pix, _ = test_input_output(i)
 
@@ -100,8 +107,14 @@ with open('adaptive_median.out.test', 'w') as file:
     file.write('\n'.join(binarize_pix(pix)))
 
 # plt.figure(1)
+# plt.subplot(3,1,1)
 # plt.imshow(i, cmap='gray', vmin=0, vmax=255)
-# plt.figure(2)
+# plt.subplot(3,1,3)
+# plt.imshow(o, cmap='gray', vmin=0, vmax=255)
+# f = filter(i)
+# plt.subplot(3,1,2)
 # plt.imshow(f, cmap='gray', vmin=0, vmax=255)
+# plt.subplot(3,1,3)
+# plt.imshow(f - i)
 # plt.show()
 
