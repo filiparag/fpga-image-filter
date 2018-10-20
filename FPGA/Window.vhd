@@ -48,7 +48,7 @@ begin
 				end loop;
 				
 				if row_count = image_slice_width then
-					row_count <= "00000000";
+					row_count <= (others => '0');
 				else
 					row_count <= row_count + 1;
 				end if;
